@@ -1,826 +1,1901 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Yala & Bundala Wild Safari Tours | Ceylon Adventure</title>
-    <!-- Tailwind CSS -->
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Vue 3 CDN -->
-    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
-    <!-- Font Awesome Icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <title>Weheragala Safari | Luxury Sri Lanka Wildlife Tours & Park Bookings</title>
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,600;0,800;1,600&display=swap" rel="stylesheet">
-    
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- FontAwesome Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
     <script>
         tailwind.config = {
+            darkMode: 'class',
             theme: {
                 extend: {
                     colors: {
                         safari: {
-                            50: '#fbf8f1',
-                            100: '#f4ede0',
-                            500: '#d97706',
-                            600: '#b45309',
-                            800: '#78350f',
-                            900: '#451a03',
-                            accent: '#15803d',
-                            dark: '#121910'
+                            50: '#f4f7f4',
+                            100: '#e3ebe4',
+                            200: '#c5d7c8',
+                            300: '#9cbca1',
+                            400: '#6f9b75',
+                            500: '#4e7e55',
+                            600: '#3a623f',
+                            700: '#1b3b22', // Primary Deep Emerald
+                            800: '#152e1b',
+                            900: '#0d1d11',
+                            950: '#060f09',
+                        },
+                        earth: {
+                            50: '#fbf8f5',
+                            100: '#f4ede4',
+                            200: '#e7d8c6',
+                            300: '#d5bca0',
+                            400: '#c09b78',
+                            500: '#a87e58',
+                            600: '#8c6344',
+                            700: '#3d2b1f', // Warm Wood / Earth Brown
+                            800: '#31231a',
+                            900: '#261b14',
+                        },
+                        gold: {
+                            300: '#f0e0a1',
+                            400: '#e5cc73',
+                            500: '#d4af37', // Safari Gold
+                            600: '#b89228',
+                            700: '#94721c',
                         }
                     },
                     fontFamily: {
-                        sans: ['Outfit', 'sans-serif'],
-                        serif: ['Playfair Display', 'serif']
+                        title: ['Cinzel', 'serif'],
+                        body: ['Plus Jakarta Sans', 'sans-serif'],
                     }
                 }
             }
         }
     </script>
     <style>
-        [v-cloak] { display: none; }
-        html { scroll-behavior: smooth; }
-        .bg-safari-pattern {
-            background-image: linear-gradient(rgba(18, 25, 16, 0.75), rgba(18, 25, 16, 0.85)), url('https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&q=80&w=1920');
-            background-size: cover;
-            background-position: center;
+        .glass-panel {
+            background: rgba(27, 59, 34, 0.45);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(212, 175, 55, 0.25);
         }
-        .hero-pattern {
-            background-image: linear-gradient(180deg, rgba(18, 25, 16, 0.4) 0%, rgba(18, 25, 16, 0.95) 100%), url('https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&q=80&w=1920');
-            background-size: cover;
-            background-position: center;
+        .glass-panel-light {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid rgba(212, 175, 55, 0.3);
+        }
+        .dark .glass-panel-light {
+            background: rgba(13, 29, 17, 0.85);
+            border-color: rgba(212, 175, 55, 0.2);
+        }
+        .gold-gradient-text {
+            background: linear-gradient(135deg, #f0e0a1 0%, #d4af37 50%, #b89228 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-overlay {
+            background: linear-gradient(180deg, rgba(13, 29, 17, 0.7) 0%, rgba(13, 29, 17, 0.4) 50%, rgba(13, 29, 17, 0.95) 100%);
+        }
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #0d1d11;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #3a623f;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #d4af37;
+        }
+        @keyframes pulseGlow {
+            0%, 100% { box-shadow: 0 0 15px rgba(212, 175, 55, 0.3); }
+            50% { box-shadow: 0 0 28px rgba(212, 175, 55, 0.7); }
+        }
+        .glow-gold {
+            animation: pulseGlow 3s infinite ease-in-out;
+        }
+        .star-rating-input button:hover,
+        .star-rating-input button:hover ~ button {
+            color: #d4af37;
         }
     </style>
 </head>
-<body class="bg-slate-900 text-slate-100 font-sans antialiased selection:bg-amber-500 selection:text-slate-900" id="app" v-cloak>
+<body class="bg-safari-50 dark:bg-safari-950 text-slate-800 dark:text-slate-100 font-body transition-colors duration-300">
 
-    <!-- Top Info Bar -->
-    <div class="bg-slate-950 text-xs py-2 border-b border-amber-900/30 text-slate-300">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-wrap justify-between items-center gap-2">
-            <div class="flex items-center space-x-6">
-                <a href="tel:+94778003605 " class="hover:text-amber-400 transition flex items-center gap-2">
-                    <i class="fa-solid fa-phone text-amber-500"></i> +94 778003605 
-                </a>
-                <span class="hidden sm:inline-block text-slate-600">|</span>
-                <span class="hidden sm:flex items-center gap-2">
-                    <i class="fa-solid fa-envelope text-amber-500"></i> ck@yalabundalasafari.com
-                </span>
-            </div>
-            <div class="flex items-center space-x-4">
-                <span class="text-amber-400 font-medium"><i class="fa-solid fa-shield-halved"></i> 100% Guaranteed Spotting Drivers</span>
-                <div class="flex items-center space-x-2 border-l border-slate-800 pl-4">
-                    <button @click="currency = 'USD'" :class="currency === 'USD' ? 'text-amber-400 font-bold' : 'text-slate-400'">USD ($)</button>
-                    <span>/</span>
-                    <button @click="currency = 'LKR'" :class="currency === 'LKR' ? 'text-amber-400 font-bold' : 'text-slate-400'">LKR (Rs)</button>
-                </div>
-            </div>
+    <!-- Top Announcement Banner -->
+    <div id="promoBanner" class="bg-gradient-to-r from-safari-900 via-earth-700 to-safari-900 text-gold-400 text-xs md:text-sm py-2 px-4 text-center flex justify-between items-center border-b border-gold-500/30">
+        <div class="flex-1 flex justify-center items-center gap-2">
+            <span class="bg-gold-500 text-safari-950 font-bold px-2 py-0.5 rounded text-xs uppercase tracking-wider">Welcome</span>
+            <span>Book today & experience luxury <strong>4x4 wildlife tours</strong> with certified leopard trackers!</span>
         </div>
+        <button onclick="document.getElementById('promoBanner').remove()" class="text-slate-400 hover:text-white transition"><i class="fa-solid fa-xmark"></i></button>
     </div>
 
-    <!-- Main Navigation Header -->
-    <header class="sticky top-0 z-40 bg-slate-900/90 backdrop-blur-md border-b border-amber-500/10 shadow-lg">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center justify-between h-20">
-                <!-- Brand Logo -->
-                <a href="#" class="flex items-center space-x-3 group">
-                    <div class="w-12 h-12 bg-gradient-to-tr from-amber-600 to-amber-400 rounded-xl flex items-center justify-center text-slate-950 font-black text-2xl shadow-lg shadow-amber-500/20 group-hover:scale-105 transition">
-                        <i class="fa-solid fa-paw"></i>
-                    </div>
-                    <div>
-                        <span class="font-serif text-xl sm:text-2xl font-bold tracking-tight text-white block">CEYLON <span class="text-amber-400">SAFARI</span></span>
-                        <span class="text-[10px] text-amber-300/80 tracking-widest uppercase block -mt-1">Yala & Bundala Wildlife Expeditions</span>
-                    </div>
+    <!-- Main Navigation Bar -->
+    <header class="sticky top-0 z-40 bg-safari-900/90 dark:bg-safari-950/95 backdrop-blur-md border-b border-safari-700/50 shadow-xl transition-all">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-20 flex items-center justify-between">
+            <!-- Brand Logo -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="w-11 h-11 rounded-full bg-gradient-to-tr from-gold-600 via-gold-500 to-amber-200 flex items-center justify-center shadow-lg group-hover:rotate-12 transition-transform duration-300">
+                    <i class="fa-solid fa-paw text-safari-950 text-xl"></i>
+                </div>
+                <div class="flex flex-col">
+                    <span class="font-title text-xl md:text-2xl font-bold tracking-wider text-white">WEHERAGALA</span>
+                    <span class="text-[10px] uppercase tracking-[0.25em] text-gold-400 font-semibold -mt-1">Luxury Safari Tours</span>
+                </div>
+            </a>
+
+            <!-- Desktop Nav Links -->
+            <nav class="hidden lg:flex items-center space-x-6 text-sm font-medium text-slate-200">
+                <a href="#home" class="hover:text-gold-400 transition-colors py-1 border-b-2 border-transparent hover:border-gold-400">Home</a>
+                <a href="#packages" class="hover:text-gold-400 transition-colors py-1 border-b-2 border-transparent hover:border-gold-400">Packages</a>
+                <a href="#parks" class="hover:text-gold-400 transition-colors py-1 border-b-2 border-transparent hover:border-gold-400">Parks</a>
+                <a href="#gallery" class="hover:text-gold-400 transition-colors py-1 border-b-2 border-transparent hover:border-gold-400">Gallery</a>
+                <a href="#about" class="hover:text-gold-400 transition-colors py-1 border-b-2 border-transparent hover:border-gold-400">About</a>
+                <a href="#reviews" class="hover:text-gold-400 transition-colors py-1 border-b-2 border-transparent hover:border-gold-400">Reviews & Feedback</a>
+                <a href="#contact" class="hover:text-gold-400 transition-colors py-1 border-b-2 border-transparent hover:border-gold-400">Contact</a>
+            </nav>
+
+            <!-- Action Buttons & Utilities -->
+            <div class="flex items-center space-x-3">
+                <!-- Theme Switcher -->
+                <button id="themeToggleBtn" onclick="toggleDarkMode()" title="Toggle Dark Mode" class="p-2.5 rounded-full bg-safari-800/80 hover:bg-safari-700 text-gold-400 border border-safari-600/50 transition">
+                    <i id="themeIcon" class="fa-solid fa-moon text-base"></i>
+                </button>
+
+                <!-- Admin Dashboard Toggle -->
+                <button onclick="openAdminModal()" title="Admin Dashboard" class="p-2.5 rounded-full bg-safari-800/80 hover:bg-safari-700 text-slate-300 hover:text-white border border-safari-600/50 transition flex items-center gap-1.5 text-xs font-semibold px-3">
+                    <i class="fa-solid fa-user-shield text-gold-400"></i>
+                    <span class="hidden sm:inline">Admin</span>
+                </button>
+
+                <!-- Book Now Call to Action -->
+                <a href="#booking" class="hidden sm:inline-flex items-center justify-center px-5 py-2.5 rounded-full bg-gradient-to-r from-gold-500 to-amber-600 hover:from-gold-400 hover:to-amber-500 text-safari-950 font-bold text-sm shadow-md hover:shadow-gold-500/20 transition-all transform hover:-translate-y-0.5">
+                    <i class="fa-solid fa-compass mr-2"></i> Book Safari
                 </a>
 
-                <!-- Desktop Menu -->
-                <nav class="hidden md:flex items-center space-x-8 font-medium text-sm">
-                    <a href="#about" class="hover:text-amber-400 transition">About Us</a>
-                    <a href="#parks" class="hover:text-amber-400 transition">National Parks</a>
-                    <a href="#packages" class="hover:text-amber-400 transition">Safari Packages</a>
-                    <a href="#jeeps" class="hover:text-amber-400 transition">4x4 Jeeps</a>
-                    <a href="#gallery" class="hover:text-amber-400 transition">Gallery</a>
-                    <a href="#reviews" class="hover:text-amber-400 transition">Reviews</a>
-                    <a href="#faq" class="hover:text-amber-400 transition">FAQ</a>
-                </nav>
-
-                <!-- Action Button -->
-                <div class="hidden sm:flex items-center space-x-4">
-                    <button @click="openBookingModal()" class="bg-gradient-to-r from-amber-500 to-amber-600 hover:from-amber-600 hover:to-amber-700 text-slate-950 font-bold px-5 py-2.5 rounded-full text-sm shadow-md shadow-amber-500/20 hover:shadow-amber-500/40 transition transform active:scale-95 flex items-center gap-2">
-                        <i class="fa-solid fa-calendar-check"></i> Book Safari Now
-                    </button>
-                </div>
-
-                <!-- Mobile Menu Toggle Button -->
-                <button @click="mobileMenuOpen = !mobileMenuOpen" class="md:hidden text-2xl text-amber-400 focus:outline-none">
-                    <i :class="mobileMenuOpen ? 'fa-solid fa-xmark' : 'fa-solid fa-bars'"></i>
+                <!-- Mobile Menu Button -->
+                <button onclick="toggleMobileMenu()" class="lg:hidden p-2 rounded-lg bg-safari-800 text-slate-200 hover:text-gold-400">
+                    <i class="fa-solid fa-bars text-xl"></i>
                 </button>
             </div>
         </div>
 
-        <!-- Mobile Menu Nav -->
-        <div v-if="mobileMenuOpen" class="md:hidden bg-slate-950 border-b border-amber-500/20 px-4 pt-2 pb-6 space-y-3">
-            <a href="#about" @click="mobileMenuOpen = false" class="block py-2 text-slate-200 hover:text-amber-400">About Us</a>
-            <a href="#parks" @click="mobileMenuOpen = false" class="block py-2 text-slate-200 hover:text-amber-400">National Parks</a>
-            <a href="#packages" @click="mobileMenuOpen = false" class="block py-2 text-slate-200 hover:text-amber-400">Safari Packages</a>
-            <a href="#jeeps" @click="mobileMenuOpen = false" class="block py-2 text-slate-200 hover:text-amber-400">4x4 Jeeps</a>
-            <a href="#gallery" @click="mobileMenuOpen = false" class="block py-2 text-slate-200 hover:text-amber-400">Gallery</a>
-            <a href="#reviews" @click="mobileMenuOpen = false" class="block py-2 text-slate-200 hover:text-amber-400">Reviews</a>
-            <a href="#faq" @click="mobileMenuOpen = false" class="block py-2 text-slate-200 hover:text-amber-400">FAQ</a>
-            <button @click="openBookingModal(); mobileMenuOpen = false" class="w-full bg-amber-500 text-slate-950 font-bold py-3 rounded-xl">
-                <i class="fa-solid fa-calendar-check mr-2"></i> Book Safari Now
-            </button>
+        <!-- Mobile Navigation Drawer -->
+        <div id="mobileMenu" class="hidden lg:hidden bg-safari-900 border-b border-safari-700 px-4 pt-2 pb-6 space-y-3">
+            <a href="#home" onclick="toggleMobileMenu()" class="block text-slate-200 hover:text-gold-400 py-2 border-b border-safari-800">Home</a>
+            <a href="#packages" onclick="toggleMobileMenu()" class="block text-slate-200 hover:text-gold-400 py-2 border-b border-safari-800">Safari Packages</a>
+            <a href="#parks" onclick="toggleMobileMenu()" class="block text-slate-200 hover:text-gold-400 py-2 border-b border-safari-800">National Parks</a>
+            <a href="#gallery" onclick="toggleMobileMenu()" class="block text-slate-200 hover:text-gold-400 py-2 border-b border-safari-800">Gallery</a>
+            <a href="#about" onclick="toggleMobileMenu()" class="block text-slate-200 hover:text-gold-400 py-2 border-b border-safari-800">About Us</a>
+            <a href="#reviews" onclick="toggleMobileMenu()" class="block text-slate-200 hover:text-gold-400 py-2 border-b border-safari-800">Reviews & Feedback</a>
+            <a href="#contact" onclick="toggleMobileMenu()" class="block text-slate-200 hover:text-gold-400 py-2 border-b border-safari-800">Contact Us</a>
+            <a href="#booking" onclick="toggleMobileMenu()" class="block text-center bg-gold-500 text-safari-950 font-bold py-3 rounded-xl mt-2">Book Now</a>
         </div>
     </header>
 
-    <!-- Hero Banner Section -->
-    <section class="hero-pattern relative min-h-[85vh] flex items-center justify-center py-20 px-4 sm:px-6">
-        <div class="max-w-5xl mx-auto text-center space-y-8 relative z-10">
-            <div class="inline-flex items-center gap-2 bg-amber-500/10 border border-amber-500/30 px-4 py-2 rounded-full text-amber-400 text-xs sm:text-sm font-semibold tracking-wider uppercase backdrop-blur-sm">
-                <i class="fa-solid fa-star text-amber-400"></i> Sri Lanka's Premier Wildlife Safari Operator
+    <!-- Hero Section -->
+    <section id="home" class="relative min-h-[90vh] flex items-center justify-center bg-safari-950 overflow-hidden">
+        <!-- 3-Image Slideshow Background Container -->
+        <div class="absolute inset-0 z-0">
+            <div id="heroSlideshow" class="relative w-full h-full">
+                <!-- Slide 1 -->
+                <img src="https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=1920&auto=format&fit=crop" 
+                     alt="Sri Lankan Safari Jeep and Wild Elephants at Sunrise" 
+                     class="hero-slide absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-1000 opacity-100 scale-105">
+                <!-- Slide 2 -->
+                <img src="https://images.unsplash.com/photo-1534567153574-2b12153a87f0?q=80&w=1920&auto=format&fit=crop" 
+                     alt="Sri Lankan Leopard Resting in Wild Reserve" 
+                     class="hero-slide absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-1000 opacity-0 scale-105">
+                <!-- Slide 3 -->
+                <img src="https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?q=80&w=1920&auto=format&fit=crop" 
+                     alt="Weheragala Reservoir Elephant Herd" 
+                     class="hero-slide absolute inset-0 w-full h-full object-cover object-center transition-opacity duration-1000 opacity-0 scale-105">
             </div>
-            
-            <h1 class="font-serif text-4xl sm:text-6xl md:text-7xl font-extrabold text-white leading-tight tracking-tight">
-                Explore Untamed Wildlife in <br class="hidden sm:inline">
-                <span class="text-transparent bg-clip-text bg-gradient-to-r from-amber-400 via-amber-300 to-amber-500">Yala & Bundala</span>
+
+            <!-- Slideshow Dot Indicators -->
+            <div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex items-center gap-2.5 bg-safari-950/60 backdrop-blur-md px-3.5 py-1.5 rounded-full border border-gold-500/30">
+                <button onclick="setHeroSlide(0)" title="Slide 1" class="hero-dot w-2.5 h-2.5 rounded-full bg-gold-500 transition-all scale-125"></button>
+                <button onclick="setHeroSlide(1)" title="Slide 2" class="hero-dot w-2.5 h-2.5 rounded-full bg-white/50 hover:bg-gold-400 transition-all"></button>
+                <button onclick="setHeroSlide(2)" title="Slide 3" class="hero-dot w-2.5 h-2.5 rounded-full bg-white/50 hover:bg-gold-400 transition-all"></button>
+            </div>
+
+            <div class="absolute inset-0 hero-overlay"></div>
+        </div>
+
+        <!-- Content Container -->
+        <div class="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-12 pb-20">
+            <span class="inline-block py-1.5 px-4 rounded-full bg-safari-800/80 border border-gold-500/50 text-gold-400 font-semibold text-xs sm:text-sm uppercase tracking-widest mb-6 backdrop-blur-md">
+                <i class="fa-solid fa-shield-cat mr-1.5 text-gold-500"></i> #1 Rated Sri Lanka Wildlife Tour Operator
+            </span>
+
+            <h1 class="font-title text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold text-white leading-tight tracking-wide mb-6">
+                The Ultimate Sri Lankan <span class="gold-gradient-text">Jungle Safari</span>
             </h1>
-            
-            <p class="text-slate-300 text-base sm:text-xl max-w-3xl mx-auto font-light leading-relaxed">
-                Spot wild leopards, sloth bears, herds of elephants, and thousands of migratory flamingos with highly experienced local trackers in customized luxury 4x4 safari jeeps.
+
+            <p class="text-base sm:text-lg md:text-xl text-slate-300 max-w-3xl mx-auto mb-10 leading-relaxed">
+                Book unforgettable luxury 4x4 safari adventures in <strong>Yala</strong>, <strong>Weheragala</strong>, <strong>Lunugamvehera</strong>, <strong>Bundala</strong>, and <strong>Udawalawe</strong> National Parks with certified leopard trackers.
             </p>
 
-            <!-- Quick Booking Box embedded in Hero -->
-            <div class="bg-slate-900/80 backdrop-blur-md p-4 sm:p-6 rounded-2xl border border-amber-500/30 max-w-4xl mx-auto shadow-2xl text-left">
-                <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
-                    <div>
-                        <label class="block text-xs font-semibold text-amber-400 uppercase tracking-wider mb-1">Select Park</label>
-                        <select v-model="quickPark" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-amber-500">
-                            <option value="yala">Yala National Park</option>
-                            <option value="bundala">Bundala Bird Sanctuary</option>
-                            <option value="combo">Yala + Bundala Combo (2 Days)</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-semibold text-amber-400 uppercase tracking-wider mb-1">Safari Type</label>
-                        <select v-model="quickType" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-amber-500">
-                            <option value="morning">Morning (5:00 AM - 10:00 AM)</option>
-                            <option value="afternoon">Evening (2:00 PM - 6:00 PM)</option>
-                            <option value="fullday">Full Day (5:00 AM - 6:00 PM)</option>
-                        </select>
-                    </div>
-
-                    <div>
-                        <label class="block text-xs font-semibold text-amber-400 uppercase tracking-wider mb-1">Guests Count</label>
-                        <select v-model="quickGuests" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-amber-500">
-                            <option v-for="n in 7" :key="n" :value="n">{{ n }} Person{{ n > 1 ? 's' : '' }}</option>
-                        </select>
-                    </div>
-
-                    <div class="flex items-end">
-                        <button @click="triggerQuickBooking()" class="w-full bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold py-2.5 rounded-lg text-sm transition flex items-center justify-center gap-2 shadow-lg shadow-amber-500/20">
-                            <i class="fa-solid fa-magnifying-glass"></i> Check Rates
-                        </button>
-                    </div>
-                </div>
+            <div class="flex flex-col sm:flex-row items-center justify-center gap-4 mb-14">
+                <a href="#booking" class="w-full sm:w-auto px-8 py-4 rounded-full bg-gradient-to-r from-gold-500 via-amber-500 to-gold-600 hover:from-gold-400 hover:to-amber-400 text-safari-950 font-extrabold text-lg shadow-xl hover:shadow-gold-500/30 transition transform hover:-translate-y-1 glow-gold">
+                    <i class="fa-solid fa-calendar-check mr-2"></i> Book Your Safari
+                </a>
+                <a href="#packages" class="w-full sm:w-auto px-8 py-4 rounded-full bg-safari-900/80 hover:bg-safari-800 text-white font-bold text-lg border border-gold-500/40 backdrop-blur-md transition transform hover:-translate-y-1">
+                    <i class="fa-solid fa-layer-group mr-2 text-gold-400"></i> Explore Packages
+                </a>
             </div>
 
-            <!-- Features Badges -->
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 pt-6 text-xs sm:text-sm text-slate-300 border-t border-slate-800/80">
-                <div class="flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-truck-monster text-amber-400 text-lg"></i>
-                    <span>Modified 4x4 Jeeps</span>
+            <!-- Quick Booking Bar Widget -->
+            <div class="glass-panel rounded-2xl p-4 sm:p-6 shadow-2xl max-w-4xl mx-auto text-left border border-gold-500/30">
+                <form onsubmit="quickBookHandler(event)" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                    <div>
+                        <label class="block text-xs uppercase tracking-wider text-gold-300 font-semibold mb-1">Select Park</label>
+                        <select id="heroParkSelect" class="w-full bg-safari-900/90 text-white text-sm rounded-lg px-3 py-2.5 border border-safari-600 focus:border-gold-500 focus:outline-none">
+                            <option value="Yala National Park Block 01">Yala National Park</option>
+                            <option value="Weheragala Safari">Weheragala (Block 05)</option>
+                            <option value="Lunugamvehera National Park">Lunugamvehera Park</option>
+                            <option value="Bundala National Park">Bundala Bird Sanctuary</option>
+                            <option value="Udawalawe National Park">Udawalawe Reserve</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase tracking-wider text-gold-300 font-semibold mb-1">Safari Type</label>
+                        <select id="heroTypeSelect" class="w-full bg-safari-900/90 text-white text-sm rounded-lg px-3 py-2.5 border border-safari-600 focus:border-gold-500 focus:outline-none">
+                            <option value="Morning Safari">Morning Safari (4 Hours / $30-$60)</option>
+                            <option value="Evening Safari">Evening Safari (4 Hours / $30-$60)</option>
+                            <option value="Full Day Safari">Full Day Safari (12 Hours / $110-$115)</option>
+                            <option value="Shared Safari">Shared Safari ($15 - $35)</option>
+                        </select>
+                    </div>
+                    <div>
+                        <label class="block text-xs uppercase tracking-wider text-gold-300 font-semibold mb-1">Date</label>
+                        <input type="date" id="heroDateInput" required class="w-full bg-safari-900/90 text-white text-sm rounded-lg px-3 py-2.5 border border-safari-600 focus:border-gold-500 focus:outline-none">
+                    </div>
+                    <div class="flex items-end">
+                        <button type="submit" class="w-full bg-gold-500 hover:bg-gold-400 text-safari-950 font-bold py-2.5 px-4 rounded-lg text-sm transition flex items-center justify-center gap-2 shadow-md">
+                            <i class="fa-solid fa-bolt"></i> Check Availability
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Key Statistics Bar -->
+    <section class="bg-safari-900 border-y border-gold-500/20 py-8 relative z-20 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
+                <div class="p-4 rounded-xl bg-safari-800/40 border border-safari-700/60">
+                    <div class="font-title text-3xl md:text-4xl font-extrabold text-gold-400 mb-1">15,000+</div>
+                    <div class="text-xs md:text-sm text-slate-300 uppercase tracking-wider">Happy Safari Guests</div>
                 </div>
-                <div class="flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-binoculars text-amber-400 text-lg"></i>
-                    <span>Free Binoculars Included</span>
+                <div class="p-4 rounded-xl bg-safari-800/40 border border-safari-700/60">
+                    <div class="font-title text-3xl md:text-4xl font-extrabold text-gold-400 mb-1">99.2%</div>
+                    <div class="text-xs md:text-sm text-slate-300 uppercase tracking-wider">Leopard Spotting Rate</div>
                 </div>
-                <div class="flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-hotel text-amber-400 text-lg"></i>
-                    <span>Free Hotel Pickup & Drop</span>
+                <div class="p-4 rounded-xl bg-safari-800/40 border border-safari-700/60">
+                    <div class="font-title text-3xl md:text-4xl font-extrabold text-gold-400 mb-1">12+ Years</div>
+                    <div class="text-xs md:text-sm text-slate-300 uppercase tracking-wider">Wilderness Experience</div>
                 </div>
-                <div class="flex items-center justify-center gap-2">
-                    <i class="fa-solid fa-bottle-water text-amber-400 text-lg"></i>
-                    <span>Complimentary Refreshments</span>
+                <div class="p-4 rounded-xl bg-safari-800/40 border border-safari-700/60">
+                    <div class="font-title text-3xl md:text-4xl font-extrabold text-gold-400 mb-1">4.9 ★★★★★</div>
+                    <div class="text-xs md:text-sm text-slate-300 uppercase tracking-wider">TripAdvisor & Google</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- About Section -->
-    <section id="about" class="py-20 bg-slate-950 relative">
+    <!-- Safari Packages Section -->
+    <section id="packages" class="py-20 bg-safari-50 dark:bg-safari-950">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <div class="space-y-6">
-                    <span class="text-amber-500 font-semibold tracking-wider text-sm uppercase">Why Choose Our Safaris</span>
-                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-white">Your Trusted Local Safari Experts in Southern Sri Lanka</h2>
-                    <p class="text-slate-400 leading-relaxed">
-                        With over 15 years of wildlife tracking experience, our team specializes in custom safari tours through **Yala National Park** and **Bundala National Park**. Unlike general tour drivers, our game drivers are passionate naturalists who know every waterhole, leopard tree, and secret trail.
-                    </p>
-                    <div class="space-y-4">
-                        <div class="flex items-start gap-4 p-4 rounded-xl bg-slate-900 border border-slate-800">
-                            <div class="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-400 shrink-0">
-                                <i class="fa-solid fa-route text-lg"></i>
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-gold-600 dark:text-gold-400 font-bold uppercase tracking-widest text-xs">Curated Excursions & Pricing</span>
+                <h2 class="font-title text-3xl md:text-5xl font-extrabold text-safari-950 dark:text-white mt-2 mb-4">
+                    Official Safari Rates & Packages
+                </h2>
+                <div class="w-24 h-1 bg-gold-500 mx-auto rounded-full mb-4"></div>
+                <p class="text-slate-600 dark:text-slate-300">
+                    Transparent prices for shared and private safaris across all major national parks. High-view modified 4x4 Toyota Hilux jeeps, binoculars, refreshments, and expert trackers included.
+                </p>
+            </div>
+
+            <!-- Park Filter Tabs -->
+            <div class="flex flex-wrap justify-center gap-2 mb-12" id="packageFilterButtons">
+                <button onclick="filterPackages('all')" class="package-tab-btn active px-5 py-2.5 rounded-full text-sm font-bold bg-safari-700 text-white shadow-md">All Parks</button>
+                <button onclick="filterPackages('yala')" class="package-tab-btn px-5 py-2.5 rounded-full text-sm font-bold bg-white dark:bg-safari-800 text-slate-700 dark:text-slate-300 hover:bg-gold-500 hover:text-safari-950 transition">Yala</button>
+                <button onclick="filterPackages('weheragala')" class="package-tab-btn px-5 py-2.5 rounded-full text-sm font-bold bg-white dark:bg-safari-800 text-slate-700 dark:text-slate-300 hover:bg-gold-500 hover:text-safari-950 transition">Weheragala</button>
+                <button onclick="filterPackages('lunugamvehera')" class="package-tab-btn px-5 py-2.5 rounded-full text-sm font-bold bg-white dark:bg-safari-800 text-slate-700 dark:text-slate-300 hover:bg-gold-500 hover:text-safari-950 transition">Lunugamvehera</button>
+                <button onclick="filterPackages('bundala')" class="package-tab-btn px-5 py-2.5 rounded-full text-sm font-bold bg-white dark:bg-safari-800 text-slate-700 dark:text-slate-300 hover:bg-gold-500 hover:text-safari-950 transition">Bundala</button>
+                <button onclick="filterPackages('udawalawe')" class="package-tab-btn px-5 py-2.5 rounded-full text-sm font-bold bg-white dark:bg-safari-800 text-slate-700 dark:text-slate-300 hover:bg-gold-500 hover:text-safari-950 transition">Udawalawe</button>
+            </div>
+
+            <!-- Packages Grid -->
+            <div id="packagesContainer" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <!-- Dynamic Package Cards rendered via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- National Parks Directory -->
+    <section id="parks" class="py-20 bg-safari-100 dark:bg-safari-900/50 border-y border-safari-200 dark:border-safari-800">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex flex-col md:flex-row md:items-end justify-between mb-12">
+                <div>
+                    <span class="text-gold-600 dark:text-gold-400 font-bold uppercase tracking-widest text-xs">Wildlife Sanctuaries</span>
+                    <h2 class="font-title text-3xl md:text-4xl font-extrabold text-safari-950 dark:text-white mt-1">
+                        Explore Sri Lanka's Park Ecosystems
+                    </h2>
+                </div>
+                <p class="text-slate-600 dark:text-slate-300 max-w-md mt-4 md:mt-0 text-sm">
+                    Each national park offers unique terrain, endemic fauna, and distinct animal gathering patterns.
+                </p>
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Weheragala Card -->
+                <div class="rounded-2xl overflow-hidden bg-white dark:bg-safari-800 shadow-xl border border-safari-200 dark:border-safari-700 flex flex-col group">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?q=80&w=800&auto=format&fit=crop" alt="Weheragala Safari Park" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                        <div class="absolute top-3 right-3 bg-safari-950/80 backdrop-blur-md text-gold-400 text-xs px-3 py-1 rounded-full font-bold">
+                            Block 05 Special
+                        </div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="font-title text-xl font-bold text-safari-950 dark:text-white mb-2">Weheragala Reservoir & Park</h3>
+                            <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+                                Famous for quiet safari tracks, high leopard density without crowds, sloth bears near water holes, and wild elephant herds during sunset.
+                            </p>
+                        </div>
+                        <div class="border-t border-slate-200 dark:border-safari-700 pt-4 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+                            <span><i class="fa-solid fa-leaf text-gold-500 mr-1"></i> Private Safari from $60</span>
+                            <a href="#booking" onclick="preselectPark('Weheragala Safari')" class="text-gold-600 dark:text-gold-400 font-bold hover:underline">Book Park →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Bundala Card -->
+                <div class="rounded-2xl overflow-hidden bg-white dark:bg-safari-800 shadow-xl border border-safari-200 dark:border-safari-700 flex flex-col group">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1552728089-57bdde30beb3?q=80&w=800&auto=format&fit=crop" alt="Bundala National Park Birds" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                        <div class="absolute top-3 right-3 bg-safari-950/80 backdrop-blur-md text-gold-400 text-xs px-3 py-1 rounded-full font-bold">
+                            RAMSAR Wetland
+                        </div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="font-title text-xl font-bold text-safari-950 dark:text-white mb-2">Bundala Bird Sanctuary</h3>
+                            <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+                                A world-renowned UNESCO Biosphere Reserve harboring Greater Flamingos, mugger crocodiles, turtles, and over 200 migratory bird species.
+                            </p>
+                        </div>
+                        <div class="border-t border-slate-200 dark:border-safari-700 pt-4 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+                            <span><i class="fa-solid fa-crow text-gold-500 mr-1"></i> Private Safari from $55</span>
+                            <a href="#booking" onclick="preselectPark('Bundala National Park')" class="text-gold-600 dark:text-gold-400 font-bold hover:underline">Book Park →</a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Udawalawe Card -->
+                <div class="rounded-2xl overflow-hidden bg-white dark:bg-safari-800 shadow-xl border border-safari-200 dark:border-safari-700 flex flex-col group">
+                    <div class="relative h-56 overflow-hidden">
+                        <img src="https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?q=80&w=800&auto=format&fit=crop" alt="Udawalawe Elephants" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                        <div class="absolute top-3 right-3 bg-safari-950/80 backdrop-blur-md text-gold-400 text-xs px-3 py-1 rounded-full font-bold">
+                            Elephant Capital
+                        </div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between">
+                        <div>
+                            <h3 class="font-title text-xl font-bold text-safari-950 dark:text-white mb-2">Udawalawe National Park</h3>
+                            <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed mb-4">
+                                Resembling an East African savanna, Udawalawe guarantees elephant encounters with large herds roaming grass plains and reservoir shorelines.
+                            </p>
+                        </div>
+                        <div class="border-t border-slate-200 dark:border-safari-700 pt-4 flex items-center justify-between text-xs text-slate-500 dark:text-slate-400">
+                            <span><i class="fa-solid fa-hippo text-gold-500 mr-1"></i> Private Safari from $30</span>
+                            <a href="#booking" onclick="preselectPark('Udawalawe National Park')" class="text-gold-600 dark:text-gold-400 font-bold hover:underline">Book Park →</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Reservation & Booking Engine Section -->
+    <section id="booking" class="py-20 bg-safari-900 text-white relative">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-gold-400 font-bold uppercase tracking-widest text-xs">Instant Reservation</span>
+                <h2 class="font-title text-3xl md:text-5xl font-extrabold text-white mt-2 mb-4">
+                    Book Your Safari Adventure
+                </h2>
+                <div class="w-24 h-1 bg-gold-500 mx-auto rounded-full mb-4"></div>
+                <p class="text-slate-300 text-sm">
+                    Fill in your trip details to calculate real-time pricing and proceed to secure instant payment confirmation.
+                </p>
+            </div>
+
+            <!-- Morning Safari 12-Hour Rule Banner -->
+            <div class="max-w-4xl mx-auto mb-8 bg-safari-950/90 border-l-4 border-gold-500 p-4 rounded-xl flex items-start gap-3 shadow-lg">
+                <i class="fa-solid fa-clock text-gold-400 text-xl mt-0.5"></i>
+                <div class="text-xs text-slate-200">
+                    <strong class="text-gold-400 font-bold uppercase tracking-wider block mb-0.5">Morning Safari Booking Rule (6:00 AM Departure)</strong>
+                    Morning safaris start at 6:00 AM. Due to jeep allocation & park entrance preparation, <strong>Morning Safari bookings must be placed at least 12 hours in advance</strong> (before 6:00 PM on the previous day).
+                </div>
+            </div>
+
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+                <!-- Form Fields -->
+                <div class="lg:col-span-8 bg-safari-950/80 rounded-2xl p-6 sm:p-8 border border-safari-700 shadow-2xl backdrop-blur-lg">
+                    <form id="safariBookingForm" onsubmit="handleBookingSubmit(event)" class="space-y-6">
+                        
+                        <!-- Contact Info Group -->
+                        <h3 class="font-title text-lg font-bold text-gold-400 border-b border-safari-800 pb-2 flex items-center gap-2">
+                            <i class="fa-solid fa-user-check"></i> 1. Guest Information
+                        </h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-300 mb-1">Full Name *</label>
+                                <input type="text" id="custName" required placeholder="John Doe" class="w-full bg-safari-900 border border-safari-700 rounded-xl px-4 py-3 text-sm text-white focus:border-gold-500 focus:outline-none">
                             </div>
                             <div>
-                                <h3 class="font-bold text-white text-base">Deep Park Knowledge</h3>
-                                <p class="text-xs text-slate-400 mt-1">We maintain real-time communication between our tracking fleet to maximize your chances of spotting rare leopards, bears, and elephants.</p>
+                                <label class="block text-xs font-semibold text-slate-300 mb-1">Email Address *</label>
+                                <input type="email" id="custEmail" required placeholder="john@example.com" class="w-full bg-safari-900 border border-safari-700 rounded-xl px-4 py-3 text-sm text-white focus:border-gold-500 focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-300 mb-1">Phone / WhatsApp *</label>
+                                <input type="tel" id="custPhone" required placeholder="+1 234 567 8900" class="w-full bg-safari-900 border border-safari-700 rounded-xl px-4 py-3 text-sm text-white focus:border-gold-500 focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-300 mb-1">Country of Origin *</label>
+                                <input type="text" id="custCountry" required placeholder="Germany, USA, UK..." class="w-full bg-safari-900 border border-safari-700 rounded-xl px-4 py-3 text-sm text-white focus:border-gold-500 focus:outline-none">
                             </div>
                         </div>
 
-                        <div class="flex items-start gap-4 p-4 rounded-xl bg-slate-900 border border-slate-800">
-                            <div class="w-10 h-10 rounded-lg bg-amber-500/10 flex items-center justify-center text-amber-400 shrink-0">
-                                <i class="fa-solid fa-ticket text-lg"></i>
+                        <!-- Tour Logistics -->
+                        <h3 class="font-title text-lg font-bold text-gold-400 border-b border-safari-800 pb-2 pt-4 flex items-center gap-2">
+                            <i class="fa-solid fa-truck-monster"></i> 2. Safari Details & Pickup
+                        </h3>
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-300 mb-1">National Park *</label>
+                                <select id="bookPark" onchange="updateFormPackages(); calculateTotal();" class="w-full bg-safari-900 border border-safari-700 rounded-xl px-4 py-3 text-sm text-white focus:border-gold-500 focus:outline-none">
+                                    <option value="Yala National Park Block 01">Yala National Park</option>
+                                    <option value="Weheragala Safari">Weheragala Safari (Block 05)</option>
+                                    <option value="Lunugamvehera National Park">Lunugamvehera National Park</option>
+                                    <option value="Bundala National Park">Bundala National Park</option>
+                                    <option value="Udawalawe National Park">Udawalawe National Park</option>
+                                </select>
                             </div>
                             <div>
-                                <h3 class="font-bold text-white text-base">VIP Entry Ticket Assistance</h3>
-                                <p class="text-xs text-slate-400 mt-1">Skip line delays! We pre-book national park entrance permits so you enter the gate as early as 5:00 AM for sunrise wildlife action.</p>
+                                <label class="block text-xs font-semibold text-slate-300 mb-1">Safari Slot & Package *</label>
+                                <select id="bookPackage" onchange="calculateTotal()" class="w-full bg-safari-900 border border-safari-700 rounded-xl px-4 py-3 text-sm text-white focus:border-gold-500 focus:outline-none">
+                                    <!-- Dynamic options injected via JS -->
+                                </select>
                             </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-300 mb-1">Safari Date *</label>
+                                <input type="date" id="bookDate" required onchange="calculateTotal()" class="w-full bg-safari-900 border border-safari-700 rounded-xl px-4 py-3 text-sm text-white focus:border-gold-500 focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-300 mb-1">Hotel / Pickup Location *</label>
+                                <input type="text" id="custHotel" required placeholder="Hotel Name in Tissamaharama / Yala" class="w-full bg-safari-900 border border-safari-700 rounded-xl px-4 py-3 text-sm text-white focus:border-gold-500 focus:outline-none">
+                            </div>
+                        </div>
+
+                        <!-- Passengers -->
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-300 mb-1">Adults</label>
+                                <input type="number" id="numAdults" min="1" max="12" value="2" onchange="calculateTotal()" class="w-full bg-safari-900 border border-safari-700 rounded-xl px-4 py-3 text-sm text-white focus:border-gold-500 focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-slate-300 mb-1">Children</label>
+                                <input type="number" id="numChildren" min="0" max="10" value="0" onchange="calculateTotal()" class="w-full bg-safari-900 border border-safari-700 rounded-xl px-4 py-3 text-sm text-white focus:border-gold-500 focus:outline-none">
+                            </div>
+                        </div>
+
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-300 mb-1">Special Requests / Dietary Requirements</label>
+                            <textarea id="specialRequests" rows="2" placeholder="e.g. Vegetarian breakfast box required, camera monopod space..." class="w-full bg-safari-900 border border-safari-700 rounded-xl px-4 py-3 text-sm text-white focus:border-gold-500 focus:outline-none"></textarea>
+                        </div>
+
+                        <button type="submit" class="w-full bg-gradient-to-r from-gold-500 to-amber-600 hover:from-gold-400 hover:to-amber-500 text-safari-950 font-extrabold text-lg py-4 rounded-xl shadow-xl transition transform hover:-translate-y-0.5">
+                            Proceed to Online Payment <i class="fa-solid fa-arrow-right ml-2"></i>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Price Summary Sidebar -->
+                <div class="lg:col-span-4 bg-safari-950/90 rounded-2xl p-6 border border-gold-500/30 shadow-2xl sticky top-28">
+                    <h3 class="font-title text-xl font-bold text-white mb-4 border-b border-safari-800 pb-3 flex items-center justify-between">
+                        <span>Price Breakdown</span>
+                        <i class="fa-solid fa-receipt text-gold-400"></i>
+                    </h3>
+
+                    <div class="space-y-3 text-sm">
+                        <div class="flex justify-between text-slate-300">
+                            <span>Selected Park:</span>
+                            <span id="summaryPark" class="font-semibold text-white">Yala</span>
+                        </div>
+                        <div class="flex justify-between text-slate-300">
+                            <span>Package:</span>
+                            <span id="summarySlot" class="font-semibold text-white">Yala Private 4h Morning</span>
+                        </div>
+                        <div class="flex justify-between text-slate-300">
+                            <span>Package Price:</span>
+                            <span id="summaryBasePrice" class="font-semibold text-white">$55.00</span>
+                        </div>
+                        <div class="flex justify-between text-slate-300">
+                            <span>Guests (<span id="summaryGuestCount">2 Guests</span>):</span>
+                            <span id="summaryGuestPrice" class="font-semibold text-white">Included</span>
+                        </div>
+                        <div class="border-t border-safari-800 pt-3 flex justify-between items-center">
+                            <span class="text-base font-bold text-white">Total Amount:</span>
+                            <span id="summaryTotal" class="font-title text-2xl font-extrabold text-gold-400">$55.00</span>
+                        </div>
+                    </div>
+
+                    <div class="mt-6 bg-safari-900/80 p-4 rounded-xl border border-safari-800 space-y-2 text-xs text-slate-300">
+                        <div class="flex items-center gap-2 text-gold-400 font-semibold">
+                            <i class="fa-solid fa-shield-halved"></i> What's Included:
+                        </div>
+                        <p class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> High-view 4x4 Toyota Safari Jeep</p>
+                        <p class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Certified English Speaking Wildlife Tracker</p>
+                        <p class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Hotel Pickup & Dropoff in Tissa/Yala</p>
+                        <p class="flex items-center gap-2"><i class="fa-solid fa-check text-emerald-400"></i> Ice Box & Mineral Water</p>
+                    </div>
+
+                    <!-- Payment Badges Supported -->
+                    <div class="mt-6 pt-4 border-t border-safari-800 text-center">
+                        <p class="text-[11px] uppercase tracking-wider text-slate-400 mb-2">Accepted Payment Options</p>
+                        <div class="flex flex-wrap justify-center items-center gap-2 text-slate-400 text-xl">
+                            <i class="fa-brands fa-cc-visa hover:text-white transition"></i>
+                            <i class="fa-brands fa-cc-mastercard hover:text-white transition"></i>
+                            <i class="fa-brands fa-cc-amex hover:text-white transition"></i>
+                            <i class="fa-brands fa-cc-paypal hover:text-white transition"></i>
+                            <i class="fa-brands fa-cc-stripe hover:text-white transition"></i>
+                            <i class="fa-brands fa-apple-pay hover:text-white transition"></i>
+                            <i class="fa-brands fa-google-pay hover:text-white transition"></i>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Photography Gallery Section -->
+    <section id="gallery" class="py-20 bg-safari-50 dark:bg-safari-950">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-gold-600 dark:text-gold-400 font-bold uppercase tracking-widest text-xs">Capturing Wilderness</span>
+                <h2 class="font-title text-3xl md:text-5xl font-extrabold text-safari-950 dark:text-white mt-2 mb-4">
+                    Wildlife Photography Gallery
+                </h2>
+                <div class="w-24 h-1 bg-gold-500 mx-auto rounded-full mb-4"></div>
+                <p class="text-slate-600 dark:text-slate-300 text-sm">
+                    All photographs captured live during Weheragala & Yala Safari expeditions by our expert guides and happy travelers.
+                </p>
+            </div>
+
+            <!-- Gallery Filter Badges -->
+            <div class="flex flex-wrap justify-center gap-2 mb-10">
+                <button onclick="filterGallery('all')" class="gallery-tag active px-4 py-2 rounded-full text-xs font-bold bg-safari-800 text-white">All Shots</button>
+                <button onclick="filterGallery('leopard')" class="gallery-tag px-4 py-2 rounded-full text-xs font-bold bg-white dark:bg-safari-800 text-slate-700 dark:text-slate-300 hover:bg-gold-500 hover:text-safari-950 transition">Leopards</button>
+                <button onclick="filterGallery('elephant')" class="gallery-tag px-4 py-2 rounded-full text-xs font-bold bg-white dark:bg-safari-800 text-slate-700 dark:text-slate-300 hover:bg-gold-500 hover:text-safari-950 transition">Elephants</button>
+                <button onclick="filterGallery('bird')" class="gallery-tag px-4 py-2 rounded-full text-xs font-bold bg-white dark:bg-safari-800 text-slate-700 dark:text-slate-300 hover:bg-gold-500 hover:text-safari-950 transition">Birds & Peacocks</button>
+                <button onclick="filterGallery('reptile')" class="gallery-tag px-4 py-2 rounded-full text-xs font-bold bg-white dark:bg-safari-800 text-slate-700 dark:text-slate-300 hover:bg-gold-500 hover:text-safari-950 transition">Crocodiles & Reptiles</button>
+                <button onclick="filterGallery('jeep')" class="gallery-tag px-4 py-2 rounded-full text-xs font-bold bg-white dark:bg-safari-800 text-slate-700 dark:text-slate-300 hover:bg-gold-500 hover:text-safari-950 transition">Safari Jeeps & Sunrise</button>
+            </div>
+
+            <!-- Grid -->
+            <div id="galleryGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+                <!-- Javascript will inject gallery items -->
+            </div>
+        </div>
+    </section>
+
+    <!-- About Us Section -->
+    <section id="about" class="py-20 bg-safari-900 text-white relative overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+                <div class="space-y-6">
+                    <span class="text-gold-400 font-bold uppercase tracking-widest text-xs">Pioneers of Sri Lankan Safaris</span>
+                    <h2 class="font-title text-3xl md:text-5xl font-extrabold text-white leading-tight">
+                        Authentic Wildlife Safaris Crafted With Passion
+                    </h2>
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        Founded in 2012, <strong>Weheragala Safari</strong> was established with a singular vision: to deliver world-class safari experiences while respecting natural eco-systems.
+                    </p>
+                    <p class="text-slate-300 text-sm leading-relaxed">
+                        Our modified high-deck 4x4 Toyota Hilux jeeps feature customized suspension for smooth off-road navigation, individual leather seating, USB charging ports, and elevated roofs offering 360-degree unobstructed photo views.
+                    </p>
+
+                    <div class="grid grid-cols-2 gap-4 pt-2">
+                        <div class="p-4 rounded-xl bg-safari-800/80 border border-safari-700">
+                            <i class="fa-solid fa-leaf text-gold-400 text-2xl mb-2"></i>
+                            <h4 class="font-bold text-sm text-white">Eco-Conservation</h4>
+                            <p class="text-xs text-slate-400 mt-1">10% of revenue directly supports local wildlife rehabilitation & ranger anti-poaching units.</p>
+                        </div>
+                        <div class="p-4 rounded-xl bg-safari-800/80 border border-safari-700">
+                            <i class="fa-solid fa-user-ninja text-gold-400 text-2xl mb-2"></i>
+                            <h4 class="font-bold text-sm text-white">Expert Trackers</h4>
+                            <p class="text-xs text-slate-400 mt-1">Certified English-speaking wildlife naturalists with over a decade of jungle tracking history.</p>
                         </div>
                     </div>
                 </div>
 
                 <div class="relative">
-                    <div class="relative z-10 rounded-2xl overflow-hidden shadow-2xl border border-amber-500/20">
-                        <img src="https://images.unsplash.com/photo-1534177616072-ef7dc120449d?auto=format&fit=crop&q=80&w=1000" alt="Yala Leopard" class="w-full h-[450px] object-cover hover:scale-105 transition duration-500">
+                    <div class="relative rounded-2xl overflow-hidden shadow-2xl border-2 border-gold-500/40">
+                        <img src="https://images.unsplash.com/photo-1534567153574-2b12153a87f0?q=80&w=1000&auto=format&fit=crop" alt="Sri Lanka Leopard in Tree" class="w-full h-auto object-cover">
                     </div>
-                    <!-- Experience Counter Badge -->
-                    <div class="absolute -bottom-6 -left-6 z-20 bg-amber-500 text-slate-950 p-6 rounded-2xl shadow-xl hidden sm:block">
-                        <span class="block text-4xl font-extrabold font-serif">15+</span>
-                        <span class="text-xs font-bold uppercase tracking-wider">Years Experience<br>In Yala & Bundala</span>
+                    <div class="absolute -bottom-6 -left-6 bg-gold-500 text-safari-950 p-6 rounded-2xl font-bold shadow-2xl max-w-xs hidden sm:block">
+                        <p class="font-title text-lg leading-tight">"Weheragala Block 05 & Yala remain Sri Lanka's best spots for quiet leopard encounters."</p>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Parks Section -->
-    <section id="parks" class="py-20 bg-slate-900 relative">
+    <!-- REVIEWS & CUSTOMER FEEDBACK SECTION -->
+    <section id="reviews" class="py-20 bg-safari-50 dark:bg-safari-950">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-16 space-y-4">
-                <span class="text-amber-500 font-semibold text-sm uppercase tracking-wider">Our Safari Destinations</span>
-                <h2 class="font-serif text-3xl sm:text-5xl font-bold text-white">Discover Sri Lanka's Wild Heart</h2>
-                <p class="text-slate-400">Choose between the world's highest leopard density park or Asia's grandest migratory bird sanctuary.</p>
+            <div class="text-center max-w-3xl mx-auto mb-16">
+                <span class="text-gold-600 dark:text-gold-400 font-bold uppercase tracking-widest text-xs">Guest Testimonials & Feedback</span>
+                <h2 class="font-title text-3xl md:text-5xl font-extrabold text-safari-950 dark:text-white mt-2 mb-4">
+                    Stories & Reviews From The Wild
+                </h2>
+                <div class="w-24 h-1 bg-gold-500 mx-auto rounded-full mb-4"></div>
+                <p class="text-slate-600 dark:text-slate-300 text-sm">
+                    Read feedback from travelers worldwide or leave your own experience comment below.
+                </p>
             </div>
 
-            <!-- Park Cards Grid -->
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <!-- Yala Park Card -->
-                <div class="bg-slate-950 rounded-2xl overflow-hidden border border-slate-800 hover:border-amber-500/50 transition duration-300 group flex flex-col justify-between">
-                    <div>
-                        <div class="relative h-64 overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&q=80&w=800" alt="Yala Safari" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
-                            <div class="absolute top-4 left-4 bg-amber-500 text-slate-950 font-bold text-xs uppercase px-3 py-1 rounded-full">
-                                World Famous
-                            </div>
-                        </div>
-                        <div class="p-6 space-y-4">
-                            <h3 class="font-serif text-2xl font-bold text-white group-hover:text-amber-400 transition">Yala National Park (Block 1 & 5)</h3>
-                            <p class="text-sm text-slate-400 leading-relaxed">
-                                Renowned for having one of the highest leopard densities in the world. Yala offers dry woodland, grassy plains, and coastal lagoons teeming with wild Sri Lankan elephants, sloth bears, mugger crocodiles, and spotted deer.
-                            </p>
-                            <div class="flex flex-wrap gap-2 pt-2">
-                                <span class="bg-slate-900 text-amber-300 text-xs px-3 py-1 rounded-md border border-slate-800"><i class="fa-solid fa-cat mr-1"></i> Sri Lankan Leopard</span>
-                                <span class="bg-slate-900 text-amber-300 text-xs px-3 py-1 rounded-md border border-slate-800"><i class="fa-solid fa-hippo mr-1"></i> Sloth Bear</span>
-                                <span class="bg-slate-900 text-amber-300 text-xs px-3 py-1 rounded-md border border-slate-800"><i class="fa-solid fa-drumstick-bite mr-1"></i> Crocodiles</span>
-                            </div>
-                        </div>
+            <!-- Overall Rating Summary & Statistics -->
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-12">
+                <!-- Rating Score Card -->
+                <div class="lg:col-span-4 bg-white dark:bg-safari-900 p-6 sm:p-8 rounded-2xl shadow-xl border border-safari-200 dark:border-safari-800 flex flex-col justify-center items-center text-center">
+                    <span class="text-5xl font-title font-extrabold text-safari-950 dark:text-white mb-2">4.9</span>
+                    <div class="flex items-center gap-1 text-gold-500 text-lg mb-2">
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
+                        <i class="fa-solid fa-star"></i>
                     </div>
-                    <div class="p-6 pt-0">
-                        <button @click="selectParkFilter('yala')" class="w-full bg-slate-900 hover:bg-amber-500 hover:text-slate-950 text-amber-400 font-bold py-3 rounded-xl border border-amber-500/30 transition flex items-center justify-center gap-2">
-                            View Yala Packages <i class="fa-solid fa-arrow-right"></i>
-                        </button>
-                    </div>
+                    <span class="text-xs text-slate-500 dark:text-slate-400 font-semibold uppercase tracking-wider">Based on 1,480+ Verified Safari Reviews</span>
+                    
+                    <a href="#feedbackForm" class="mt-6 w-full py-3 px-4 rounded-xl bg-gold-500 hover:bg-gold-400 text-safari-950 font-extrabold text-xs tracking-wider uppercase transition shadow-md flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-pen-to-square"></i> Write A Review / Feedback
+                    </a>
                 </div>
 
-                <!-- Bundala Park Card -->
-                <div class="bg-slate-950 rounded-2xl overflow-hidden border border-slate-800 hover:border-amber-500/50 transition duration-300 group flex flex-col justify-between">
-                    <div>
-                        <div class="relative h-64 overflow-hidden">
-                            <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&q=80&w=800" alt="Bundala Birds" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
-                            <div class="absolute top-4 left-4 bg-emerald-500 text-slate-950 font-bold text-xs uppercase px-3 py-1 rounded-full">
-                                Birdwatcher's Haven
+                <!-- Rating Breakdown Bars -->
+                <div class="lg:col-span-8 bg-white dark:bg-safari-900 p-6 sm:p-8 rounded-2xl shadow-xl border border-safari-200 dark:border-safari-800 flex flex-col justify-between">
+                    <h3 class="font-title text-base font-bold text-safari-950 dark:text-white mb-4">Guest Satisfaction Breakdown</h3>
+                    <div class="space-y-3 text-xs">
+                        <div class="flex items-center gap-3">
+                            <span class="w-16 font-semibold text-slate-600 dark:text-slate-300">5 Stars</span>
+                            <div class="flex-1 bg-slate-200 dark:bg-safari-800 h-3 rounded-full overflow-hidden">
+                                <div class="bg-gold-500 h-full rounded-full" style="width: 92%;"></div>
                             </div>
+                            <span class="w-10 text-right font-bold text-slate-700 dark:text-slate-300">92%</span>
                         </div>
-                        <div class="p-6 space-y-4">
-                            <h3 class="font-serif text-2xl font-bold text-white group-hover:text-amber-400 transition">Bundala National Park</h3>
-                            <p class="text-sm text-slate-400 leading-relaxed">
-                                UNESCO Biosphere Reserve and Sri Lanka's premier birdwatching haven. Home to nearly 200 species of waterbirds, including thousands of winter migratory Greater Flamingos, pelicans, painted storks, and wild elephants.
-                            </p>
-                            <div class="flex flex-wrap gap-2 pt-2">
-                                <span class="bg-slate-900 text-emerald-300 text-xs px-3 py-1 rounded-md border border-slate-800"><i class="fa-solid fa-crow mr-1"></i> Greater Flamingos</span>
-                                <span class="bg-slate-900 text-emerald-300 text-xs px-3 py-1 rounded-md border border-slate-800"><i class="fa-solid fa-water mr-1"></i> Lagoons & Dunes</span>
-                                <span class="bg-slate-900 text-emerald-300 text-xs px-3 py-1 rounded-md border border-slate-800"><i class="fa-solid fa-feather mr-1"></i> 197 Bird Species</span>
+                        <div class="flex items-center gap-3">
+                            <span class="w-16 font-semibold text-slate-600 dark:text-slate-300">4 Stars</span>
+                            <div class="flex-1 bg-slate-200 dark:bg-safari-800 h-3 rounded-full overflow-hidden">
+                                <div class="bg-gold-500 h-full rounded-full" style="width: 6%;"></div>
                             </div>
+                            <span class="w-10 text-right font-bold text-slate-700 dark:text-slate-300">6%</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="w-16 font-semibold text-slate-600 dark:text-slate-300">3 Stars</span>
+                            <div class="flex-1 bg-slate-200 dark:bg-safari-800 h-3 rounded-full overflow-hidden">
+                                <div class="bg-gold-500 h-full rounded-full" style="width: 1.5%;"></div>
+                            </div>
+                            <span class="w-10 text-right font-bold text-slate-700 dark:text-slate-300">1.5%</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="w-16 font-semibold text-slate-600 dark:text-slate-300">2 Stars</span>
+                            <div class="flex-1 bg-slate-200 dark:bg-safari-800 h-3 rounded-full overflow-hidden">
+                                <div class="bg-gold-500 h-full rounded-full" style="width: 0.5%;"></div>
+                            </div>
+                            <span class="w-10 text-right font-bold text-slate-700 dark:text-slate-300">0.5%</span>
+                        </div>
+                        <div class="flex items-center gap-3">
+                            <span class="w-16 font-semibold text-slate-600 dark:text-slate-300">1 Star</span>
+                            <div class="flex-1 bg-slate-200 dark:bg-safari-800 h-3 rounded-full overflow-hidden">
+                                <div class="bg-gold-500 h-full rounded-full" style="width: 0%;"></div>
+                            </div>
+                            <span class="w-10 text-right font-bold text-slate-700 dark:text-slate-300">0%</span>
                         </div>
                     </div>
-                    <div class="p-6 pt-0">
-                        <button @click="selectParkFilter('bundala')" class="w-full bg-slate-900 hover:bg-emerald-500 hover:text-slate-950 text-emerald-400 font-bold py-3 rounded-xl border border-emerald-500/30 transition flex items-center justify-center gap-2">
-                            View Bundala Packages <i class="fa-solid fa-arrow-right"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Packages Section -->
-    <section id="packages" class="py-20 bg-slate-950">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-12 space-y-4">
-                <span class="text-amber-500 font-semibold text-sm uppercase tracking-wider">Book Your Adventure</span>
-                <h2 class="font-serif text-3xl sm:text-5xl font-bold text-white">Popular Safari Tour Packages</h2>
-                <p class="text-slate-400">All packages include private 4x4 Japanese Jeeps, free hotel pickup & drop-off, free binoculars, and ice-box cold drinks.</p>
-                
-                <!-- Filter Tabs -->
-                <div class="flex flex-wrap justify-center gap-2 pt-4">
-                    <button @click="filterPark = 'all'" :class="filterPark === 'all' ? 'bg-amber-500 text-slate-950 font-bold' : 'bg-slate-900 text-slate-300 hover:bg-slate-800'" class="px-5 py-2.5 rounded-full text-xs sm:text-sm transition">
-                        All Safaris
-                    </button>
-                    <button @click="filterPark = 'yala'" :class="filterPark === 'yala' ? 'bg-amber-500 text-slate-950 font-bold' : 'bg-slate-900 text-slate-300 hover:bg-slate-800'" class="px-5 py-2.5 rounded-full text-xs sm:text-sm transition">
-                        Yala Safaris
-                    </button>
-                    <button @click="filterPark = 'bundala'" :class="filterPark === 'bundala' ? 'bg-amber-500 text-slate-950 font-bold' : 'bg-slate-900 text-slate-300 hover:bg-slate-800'" class="px-5 py-2.5 rounded-full text-xs sm:text-sm transition">
-                        Bundala Safaris
-                    </button>
-                    <button @click="filterPark = 'combo'" :class="filterPark === 'combo' ? 'bg-amber-500 text-slate-950 font-bold' : 'bg-slate-900 text-slate-300 hover:bg-slate-800'" class="px-5 py-2.5 rounded-full text-xs sm:text-sm transition">
-                        2-Day Combos
-                    </button>
                 </div>
             </div>
 
-            <!-- Package Cards List -->
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-                <div v-for="pkg in filteredPackages" :key="pkg.id" class="bg-slate-900 rounded-2xl border border-slate-800 hover:border-amber-500/40 transition duration-300 flex flex-col justify-between overflow-hidden relative group">
-                    <div class="relative h-48 overflow-hidden">
-                        <img :src="pkg.image" :alt="pkg.title" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
-                        <div class="absolute top-3 right-3 bg-slate-950/80 backdrop-blur-md text-amber-400 font-bold text-xs px-3 py-1 rounded-full border border-amber-500/20">
-                            {{ pkg.time }}
-                        </div>
+            <!-- Comment Filter Bar -->
+            <div class="flex flex-wrap items-center justify-between gap-4 mb-8 bg-white dark:bg-safari-900 p-4 rounded-xl border border-safari-200 dark:border-safari-800 shadow-md">
+                <div class="flex items-center gap-2">
+                    <i class="fa-solid fa-filter text-gold-500"></i>
+                    <span class="text-xs font-bold text-safari-950 dark:text-white uppercase tracking-wider">Filter Feedback:</span>
+                </div>
+                <div class="flex flex-wrap gap-2 text-xs">
+                    <button onclick="filterFeedback('all')" id="fbBtn-all" class="fb-filter-btn px-3 py-1.5 rounded-lg bg-safari-700 text-white font-bold">All Ratings</button>
+                    <button onclick="filterFeedback(5)" id="fbBtn-5" class="fb-filter-btn px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-safari-800 text-slate-700 dark:text-slate-300 font-semibold hover:bg-gold-500 hover:text-safari-950 transition">5 Stars ★</button>
+                    <button onclick="filterFeedback(4)" id="fbBtn-4" class="fb-filter-btn px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-safari-800 text-slate-700 dark:text-slate-300 font-semibold hover:bg-gold-500 hover:text-safari-950 transition">4 Stars ★</button>
+                </div>
+            </div>
+
+            <!-- Dynamic Feedback Comments Grid -->
+            <div id="reviewsContainer" class="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16">
+                <!-- Javascript will inject initial + user submitted feedback cards here -->
+            </div>
+
+            <!-- USER COMMENT & FEEDBACK SUBMISSION FORM -->
+            <div id="feedbackForm" class="bg-white dark:bg-safari-900 p-6 sm:p-8 rounded-2xl border-2 border-gold-500/40 shadow-2xl max-w-3xl mx-auto">
+                <div class="text-center mb-6">
+                    <div class="w-12 h-12 bg-gold-500/20 text-gold-500 rounded-full flex items-center justify-center mx-auto mb-2 text-xl">
+                        <i class="fa-solid fa-comment-dots"></i>
                     </div>
+                    <h3 class="font-title text-2xl font-bold text-safari-950 dark:text-white">Leave Your Feedback & Experience</h3>
+                    <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">Did you go on a safari with us? Share your comments to help future travelers!</p>
+                </div>
 
-                    <div class="p-6 space-y-4 flex-grow">
-                        <div class="flex items-center gap-2 text-xs text-amber-400 font-semibold uppercase">
-                            <i class="fa-solid fa-location-dot"></i> {{ pkg.parkName }}
-                        </div>
-                        <h3 class="font-serif text-xl font-bold text-white">{{ pkg.title }}</h3>
-                        <p class="text-xs text-slate-400 leading-relaxed">{{ pkg.description }}</p>
-
-                        <!-- Highlights -->
-                        <div class="space-y-2 pt-2 border-t border-slate-800">
-                            <span class="text-xs font-bold text-slate-300 block">Package Highlights:</span>
-                            <ul class="space-y-1">
-                                <li v-for="inc in pkg.inclusions" :key="inc" class="text-xs text-slate-400 flex items-center gap-2">
-                                    <i class="fa-solid fa-check text-amber-400 text-[10px]"></i> {{ inc }}
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-
-                    <div class="p-6 bg-slate-950/60 border-t border-slate-800 flex items-center justify-between">
+                <form onsubmit="handleFeedbackSubmit(event)" class="space-y-4">
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
                         <div>
-                            <span class="text-xs text-slate-500 block">Jeep Rate (Up to 6 guests)</span>
-                            <span class="text-xl font-bold text-amber-400 font-serif">
-                                {{ formatPrice(pkg.priceUSD, pkg.priceLKR) }}
-                            </span>
+                            <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Your Full Name *</label>
+                            <input type="text" id="fbName" required placeholder="e.g. Sarah Jenkins" class="w-full bg-slate-50 dark:bg-safari-950 border border-slate-300 dark:border-safari-700 rounded-xl px-4 py-2.5 text-sm text-slate-800 dark:text-white focus:border-gold-500 focus:outline-none">
                         </div>
-                        <button @click="openBookingModal(pkg)" class="bg-amber-500 hover:bg-amber-600 text-slate-950 font-bold px-4 py-2 rounded-xl text-xs transition flex items-center gap-1.5 shadow-md shadow-amber-500/10">
-                            Book Now <i class="fa-solid fa-chevron-right text-[10px]"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- 4x4 Jeep Fleet Section -->
-    <section id="jeeps" class="py-20 bg-slate-900 border-t border-slate-800">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-                <div class="space-y-6">
-                    <span class="text-amber-500 font-semibold text-sm uppercase tracking-wider">Luxury Safari Jeeps</span>
-                    <h2 class="font-serif text-3xl sm:text-4xl font-bold text-white">Specially Modified 4x4 Safari Fleet</h2>
-                    <p class="text-slate-400 leading-relaxed">
-                        Comfort and safety are vital during a game drive. Our customized Japanese 4WD Toyota Hilux and Land Cruiser jeeps feature elevated, forward-facing padded seats, open sides for 360-degree photography, waterproof canvas covers, and built-in ice boxes.
-                    </p>
-                    <div class="grid grid-cols-2 gap-4 pt-2">
-                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
-                            <i class="fa-solid fa-chair text-amber-400 text-xl mb-2"></i>
-                            <h4 class="font-bold text-white text-sm">Elevated Seating</h4>
-                            <p class="text-xs text-slate-400 mt-1">High-view cushion seats for clear wildlife viewing.</p>
-                        </div>
-                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
-                            <i class="fa-solid fa-snowflake text-amber-400 text-xl mb-2"></i>
-                            <h4 class="font-bold text-white text-sm">On-Board Ice Box</h4>
-                            <p class="text-xs text-slate-400 mt-1">Cold mineral water and fruit juices provided throughout.</p>
-                        </div>
-                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
-                            <i class="fa-solid fa-camera text-amber-400 text-xl mb-2"></i>
-                            <h4 class="font-bold text-white text-sm">Camera Charging</h4>
-                            <p class="text-xs text-slate-400 mt-1">12V USB ports available inside jeep for photographers.</p>
-                        </div>
-                        <div class="bg-slate-950 p-4 rounded-xl border border-slate-800">
-                            <i class="fa-solid fa-shield-virus text-amber-400 text-xl mb-2"></i>
-                            <h4 class="font-bold text-white text-sm">All-Weather Canopy</h4>
-                            <p class="text-xs text-slate-400 mt-1">Quick-deploy waterproof protection during sudden rain.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="space-y-4">
-                    <div class="rounded-2xl overflow-hidden border border-amber-500/20 shadow-2xl">
-                        <img src="https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&q=80&w=1000" alt="Safari Jeep Fleet" class="w-full h-80 object-cover">
-                    </div>
-                    <div class="grid grid-cols-2 gap-4">
-                        <img src="https://images.unsplash.com/photo-1534177616072-ef7dc120449d?auto=format&fit=crop&q=80&w=500" alt="Jeep Safari Experience" class="rounded-xl h-36 w-full object-cover border border-slate-800">
-                        <img src="https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&q=80&w=500" alt="Bundala Wildlife Jeep" class="rounded-xl h-36 w-full object-cover border border-slate-800">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Photo Gallery -->
-    <section id="gallery" class="py-20 bg-slate-950">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-12 space-y-4">
-                <span class="text-amber-500 font-semibold text-sm uppercase tracking-wider">Moments In The Wild</span>
-                <h2 class="font-serif text-3xl sm:text-5xl font-bold text-white">Safari Photo Gallery</h2>
-                <p class="text-slate-400">Captured through the lenses of our guests during Yala and Bundala game drives.</p>
-            </div>
-
-            <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <div v-for="(img, idx) in galleryImages" :key="idx" class="relative group overflow-hidden rounded-xl border border-slate-800 h-60">
-                    <img :src="img.url" :alt="img.caption" class="w-full h-full object-cover group-hover:scale-110 transition duration-500">
-                    <div class="absolute inset-0 bg-gradient-to-t from-slate-950 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-300 p-4 flex flex-col justify-end">
-                        <span class="text-amber-400 text-xs font-semibold">{{ img.category }}</span>
-                        <span class="text-white text-sm font-bold">{{ img.caption }}</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Testimonials / Reviews -->
-    <section id="reviews" class="py-20 bg-slate-900">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center max-w-3xl mx-auto mb-12 space-y-4">
-                <span class="text-amber-500 font-semibold text-sm uppercase tracking-wider">Guest Feedback</span>
-                <h2 class="font-serif text-3xl sm:text-5xl font-bold text-white">What Travelers Say</h2>
-                <p class="text-slate-400">Rated 5.0 Stars on TripAdvisor & Google Reviews</p>
-            </div>
-
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                <div v-for="rev in reviews" :key="rev.id" class="bg-slate-950 p-6 rounded-2xl border border-slate-800 flex flex-col justify-between">
-                    <div class="space-y-4">
-                        <div class="flex text-amber-400 space-x-1 text-sm">
-                            <i v-for="s in 5" :key="s" class="fa-solid fa-star"></i>
-                        </div>
-                        <p class="text-xs sm:text-sm text-slate-300 italic leading-relaxed">"{{ rev.comment }}"</p>
-                    </div>
-                    <div class="pt-6 mt-6 border-t border-slate-900 flex items-center justify-between">
                         <div>
-                            <h4 class="font-bold text-white text-sm">{{ rev.name }}</h4>
-                            <span class="text-xs text-slate-500">{{ rev.country }}</span>
+                            <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Email Address * (Private)</label>
+                            <input type="email" id="fbEmail" required placeholder="sarah@example.com" class="w-full bg-slate-50 dark:bg-safari-950 border border-slate-300 dark:border-safari-700 rounded-xl px-4 py-2.5 text-sm text-slate-800 dark:text-white focus:border-gold-500 focus:outline-none">
                         </div>
-                        <span class="text-[10px] text-amber-500/80 uppercase font-bold bg-amber-500/10 px-2.5 py-1 rounded-full">{{ rev.park }}</span>
                     </div>
-                </div>
+
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Country / City</label>
+                            <input type="text" id="fbCountry" placeholder="e.g. Melbourne, Australia" class="w-full bg-slate-50 dark:bg-safari-950 border border-slate-300 dark:border-safari-700 rounded-xl px-4 py-2.5 text-sm text-slate-800 dark:text-white focus:border-gold-500 focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Safari Park Visited *</label>
+                            <select id="fbPark" class="w-full bg-slate-50 dark:bg-safari-950 border border-slate-300 dark:border-safari-700 rounded-xl px-4 py-2.5 text-sm text-slate-800 dark:text-white focus:border-gold-500 focus:outline-none">
+                                <option value="Yala National Park">Yala National Park</option>
+                                <option value="Weheragala Safari">Weheragala Safari (Block 05)</option>
+                                <option value="Lunugamvehera Park">Lunugamvehera Park</option>
+                                <option value="Bundala Bird Sanctuary">Bundala Bird Sanctuary</option>
+                                <option value="Udawalawe Elephant Reserve">Udawalawe Elephant Reserve</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Select Star Rating *</label>
+                        <div class="flex items-center gap-2" id="starRatingSelector">
+                            <input type="hidden" id="fbRatingVal" value="5">
+                            <div class="flex gap-1 text-2xl text-gold-500 cursor-pointer">
+                                <i class="fa-solid fa-star star-btn" onclick="setStarRating(1)"></i>
+                                <i class="fa-solid fa-star star-btn" onclick="setStarRating(2)"></i>
+                                <i class="fa-solid fa-star star-btn" onclick="setStarRating(3)"></i>
+                                <i class="fa-solid fa-star star-btn" onclick="setStarRating(4)"></i>
+                                <i class="fa-solid fa-star star-btn" onclick="setStarRating(5)"></i>
+                            </div>
+                            <span id="starRatingText" class="text-xs font-bold text-gold-500 uppercase tracking-wider ml-2">5 Stars - Excellent!</span>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Your Comment & Review Details *</label>
+                        <textarea id="fbComment" rows="4" required placeholder="Write details about your guide, animal sightings, comfort, vehicle condition..." class="w-full bg-slate-50 dark:bg-safari-950 border border-slate-300 dark:border-safari-700 rounded-xl px-4 py-2.5 text-sm text-slate-800 dark:text-white focus:border-gold-500 focus:outline-none"></textarea>
+                    </div>
+
+                    <button type="submit" class="w-full bg-gradient-to-r from-gold-500 to-amber-600 hover:from-gold-400 hover:to-amber-500 text-safari-950 font-extrabold py-3.5 rounded-xl shadow-lg transition transform hover:-translate-y-0.5 text-sm flex items-center justify-center gap-2">
+                        <i class="fa-solid fa-paper-plane"></i> Post Your Feedback
+                    </button>
+                </form>
             </div>
         </div>
     </section>
 
-    <!-- FAQ Section -->
-    <section id="faq" class="py-20 bg-slate-950">
+    <!-- FAQs Accordion -->
+    <section class="py-20 bg-safari-100 dark:bg-safari-900 border-t border-safari-200 dark:border-safari-800">
         <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12 space-y-4">
-                <span class="text-amber-500 font-semibold text-sm uppercase tracking-wider">Got Questions?</span>
-                <h2 class="font-serif text-3xl sm:text-4xl font-bold text-white">Frequently Asked Questions</h2>
+            <div class="text-center mb-12">
+                <span class="text-gold-600 dark:text-gold-400 font-bold uppercase tracking-widest text-xs">Helpful Information</span>
+                <h2 class="font-title text-3xl font-extrabold text-safari-950 dark:text-white mt-1">Frequently Asked Questions</h2>
             </div>
 
-            <div class="space-y-4">
-                <div v-for="(faq, index) in faqs" :key="index" class="bg-slate-900 rounded-xl border border-slate-800 overflow-hidden">
-                    <button @click="toggleFaq(index)" class="w-full p-5 text-left font-bold text-white flex justify-between items-center focus:outline-none hover:text-amber-400 transition">
-                        <span>{{ faq.q }}</span>
-                        <i :class="activeFaq === index ? 'fa-solid fa-minus text-amber-400' : 'fa-solid fa-plus text-slate-500'"></i>
+            <div class="space-y-4" id="faqAccordion">
+                <div class="bg-white dark:bg-safari-800 rounded-xl border border-slate-200 dark:border-safari-700 overflow-hidden">
+                    <button onclick="toggleFaq(1)" class="w-full text-left p-4 font-bold text-sm text-safari-950 dark:text-white flex justify-between items-center">
+                        <span>What is the deadline for booking a Morning Safari?</span>
+                        <i id="faqIcon-1" class="fa-solid fa-chevron-down text-gold-500"></i>
                     </button>
-                    <div v-if="activeFaq === index" class="p-5 pt-0 text-xs sm:text-sm text-slate-400 leading-relaxed border-t border-slate-800/50 mt-1">
-                        {{ faq.a }}
+                    <div id="faqContent-1" class="hidden p-4 pt-0 text-xs text-slate-600 dark:text-slate-300 leading-relaxed border-t border-slate-100 dark:border-safari-700">
+                        Morning safaris departure is at 6:00 AM. To ensure jeep preparation and park entry tickets, morning safari bookings must be completed <strong>at least 12 hours prior</strong> to start time (before 6:00 PM of the previous day).
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-safari-800 rounded-xl border border-slate-200 dark:border-safari-700 overflow-hidden">
+                    <button onclick="toggleFaq(2)" class="w-full text-left p-4 font-bold text-sm text-safari-950 dark:text-white flex justify-between items-center">
+                        <span>Is hotel pickup included in the safari package?</span>
+                        <i id="faqIcon-2" class="fa-solid fa-chevron-down text-gold-500"></i>
+                    </button>
+                    <div id="faqContent-2" class="hidden p-4 pt-0 text-xs text-slate-600 dark:text-slate-300 leading-relaxed border-t border-slate-100 dark:border-safari-700">
+                        Yes! Free hotel pickup and drop-off are included for all hotels located in Tissamaharama, Yala, Kirinda, and Kataragama areas.
+                    </div>
+                </div>
+
+                <div class="bg-white dark:bg-safari-800 rounded-xl border border-slate-200 dark:border-safari-700 overflow-hidden">
+                    <button onclick="toggleFaq(3)" class="w-full text-left p-4 font-bold text-sm text-safari-950 dark:text-white flex justify-between items-center">
+                        <span>What is the difference between Shared and Private Safaris?</span>
+                        <i id="faqIcon-3" class="fa-solid fa-chevron-down text-gold-500"></i>
+                    </button>
+                    <div id="faqContent-3" class="hidden p-4 pt-0 text-xs text-slate-600 dark:text-slate-300 leading-relaxed border-t border-slate-100 dark:border-safari-700">
+                        Shared safaris let you join other wildlife enthusiasts at budget rates (e.g. $15 for 7h or $35 for 12h in Yala). Private safaris reserve the entire 4x4 jeep exclusively for you and your family.
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Contact & Footer -->
-    <footer class="bg-slate-950 border-t border-slate-800 text-slate-400 pt-16 pb-12">
+    <!-- Contact Us Section -->
+    <section id="contact" class="py-20 bg-safari-950 text-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 md:grid-cols-4 gap-10 pb-12 border-b border-slate-800">
-                <div class="space-y-4">
-                    <div class="flex items-center space-x-3">
-                        <div class="w-10 h-10 bg-amber-500 rounded-lg flex items-center justify-center text-slate-950 font-black text-xl">
-                            <i class="fa-solid fa-paw"></i>
-                        </div>
-                        <span class="font-serif text-xl font-bold text-white">CEYLON <span class="text-amber-400">SAFARI</span></span>
-                    </div>
-                    <p class="text-xs leading-relaxed">
-                        Official safari booking partner for Yala National Park and Bundala Bird Sanctuary. Headquartered in Tissamaharama, Southern Province, Sri Lanka.
+            <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                <div>
+                    <span class="text-gold-400 font-bold uppercase tracking-widest text-xs">Reach Out To Us</span>
+                    <h2 class="font-title text-3xl md:text-5xl font-extrabold text-white mt-2 mb-6">
+                        Get In Touch With Our Safari Specialists
+                    </h2>
+                    <p class="text-slate-300 text-sm mb-8">
+                        Have custom tour requests or require large group arrangements? Contact our 24/7 hotline or WhatsApp chat directly.
                     </p>
+
+                    <div class="space-y-4 text-sm">
+                        <div class="flex items-center gap-4 p-4 rounded-xl bg-safari-900 border border-safari-800">
+                            <div class="w-10 h-10 rounded-full bg-gold-500/20 text-gold-400 flex items-center justify-center">
+                                <i class="fa-solid fa-phone text-lg"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-slate-400">Direct Hotline</p>
+                                <p class="font-bold text-white">+94 77 716310172 / +94 47 987 6543</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-4 p-4 rounded-xl bg-safari-900 border border-safari-800">
+                            <div class="w-10 h-10 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center">
+                                <i class="fa-brands fa-whatsapp text-lg"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-slate-400">Instant WhatsApp Booking</p>
+                                <p class="font-bold text-white">+94 77 123 4567</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-4 p-4 rounded-xl bg-safari-900 border border-safari-800">
+                            <div class="w-10 h-10 rounded-full bg-gold-500/20 text-gold-400 flex items-center justify-center">
+                                <i class="fa-solid fa-envelope text-lg"></i>
+                            </div>
+                            <div>
+                                <p class="text-xs text-slate-400">Email Enquiries</p>
+                                <p class="font-bold text-white">info@weheragalasafari.com</p>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
-                <div>
-                    <h4 class="text-white font-bold text-sm uppercase tracking-wider mb-4">Quick Links</h4>
-                    <ul class="space-y-2 text-xs">
-                        <li><a href="#about" class="hover:text-amber-400">About Ceylon Safari</a></li>
-                        <li><a href="#parks" class="hover:text-amber-400">Yala vs Bundala</a></li>
-                        <li><a href="#packages" class="hover:text-amber-400">Tour Package Rates</a></li>
-                        <li><a href="#jeeps" class="hover:text-amber-400">Our 4x4 Fleet</a></li>
-                    </ul>
-                </div>
+                <!-- Contact Form & Map -->
+                <div class="space-y-6">
+                    <form onsubmit="handleContactSubmit(event)" class="bg-safari-900 p-6 rounded-2xl border border-safari-800 space-y-4">
+                        <h3 class="font-title text-xl font-bold text-gold-400">Send Quick Enquiry</h3>
+                        <div class="grid grid-cols-2 gap-4">
+                            <input type="text" required placeholder="Your Name" class="bg-safari-950 border border-safari-700 rounded-lg p-3 text-sm text-white focus:outline-none focus:border-gold-500">
+                            <input type="email" required placeholder="Your Email" class="bg-safari-950 border border-safari-700 rounded-lg p-3 text-sm text-white focus:outline-none focus:border-gold-500">
+                        </div>
+                        <input type="text" placeholder="Subject / Park of Interest" class="w-full bg-safari-950 border border-safari-700 rounded-lg p-3 text-sm text-white focus:outline-none focus:border-gold-500">
+                        <textarea rows="3" required placeholder="Write your message here..." class="w-full bg-safari-950 border border-safari-700 rounded-lg p-3 text-sm text-white focus:outline-none focus:border-gold-500"></textarea>
+                        <button type="submit" class="w-full bg-gold-500 hover:bg-gold-400 text-safari-950 font-bold py-3 rounded-lg transition">Send Message</button>
+                    </form>
 
-                <div>
-                    <h4 class="text-white font-bold text-sm uppercase tracking-wider mb-4">Pickup Locations</h4>
-                    <ul class="space-y-2 text-xs">
-                        <li><i class="fa-solid fa-check text-amber-400 text-[10px] mr-1"></i> Tissamaharama Town</li>
-                        <li><i class="fa-solid fa-check text-amber-400 text-[10px] mr-1"></i> Yala & Kirinda Hotels</li>
-                        <li><i class="fa-solid fa-check text-amber-400 text-[10px] mr-1"></i> Kataragama & Debarawewa</li>
-                        <li><i class="fa-solid fa-check text-amber-400 text-[10px] mr-1"></i> Hambantota Port Transfers</li>
-                    </ul>
-                </div>
-
-                <div>
-                    <h4 class="text-white font-bold text-sm uppercase tracking-wider mb-4">Direct Contact</h4>
-                    <ul class="space-y-3 text-xs">
-                        <li class="flex items-start gap-2">
-                            <i class="fa-solid fa-location-dot text-amber-400 mt-0.5"></i>
-                            <span>Main Safari Office, Main Street, Tissamaharama 82600, Sri Lanka</span>
-                        </li>
-                        <li class="flex items-center gap-2">
-                            <i class="fa-solid fa-phone text-amber-400"></i>
-                            <span>+94 77 123 4567</span>
-                        </li>
-                        <li class="flex items-center gap-2">
-                            <i class="fa-solid fa-envelope text-amber-400"></i>
-                            <span>info@yalabundalasafari.com</span>
-                        </li>
-                    </ul>
+                    <!-- Google Map Frame -->
+                    <div class="h-48 rounded-2xl overflow-hidden border border-safari-800 shadow-inner">
+                        <iframe title="Map" src="https://maps.google.com/maps?q=Tissamaharama,SriLanka&t=&z=12&ie=UTF8&iwloc=&output=embed" class="w-full h-full border-0" allowfullscreen="" loading="lazy"></iframe>
+                    </div>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <div class="pt-8 flex flex-col sm:flex-row justify-between items-center text-xs text-slate-500 gap-4">
-                <p>&copy; 2026 Ceylon Safari Tours. All Rights Reserved.</p>
-                <div class="flex space-x-6 text-base text-slate-400">
-                    <a href="#" class="hover:text-amber-400"><i class="fa-brands fa-facebook"></i></a>
-                    <a href="#" class="hover:text-amber-400"><i class="fa-brands fa-instagram"></i></a>
-                    <a href="#" class="hover:text-amber-400"><i class="fa-brands fa-whatsapp"></i></a>
-                    <a href="#" class="hover:text-amber-400"><i class="fa-brands fa-tripadvisor"></i></a>
+    <!-- Footer -->
+    <footer class="bg-safari-950 text-slate-400 border-t border-safari-800 py-12 text-sm">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+            <div>
+                <a href="#" class="flex items-center gap-2 mb-4">
+                    <i class="fa-solid fa-paw text-gold-400 text-2xl"></i>
+                    <span class="font-title text-xl font-bold text-white">WEHERAGALA SAFARI</span>
+                </a>
+                <p class="text-xs text-slate-400 leading-relaxed">
+                    Sri Lanka's premier wildlife safari tour operator specializing in shared and private 4x4 game drives in Yala, Weheragala, Lunugamvehera, Bundala, and Udawalawe.
+                </p>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-4 font-title">Quick Links</h4>
+                <ul class="space-y-2 text-xs">
+                    <li><a href="#home" class="hover:text-gold-400">Home</a></li>
+                    <li><a href="#packages" class="hover:text-gold-400">Safari Packages & Prices</a></li>
+                    <li><a href="#parks" class="hover:text-gold-400">National Parks Directory</a></li>
+                    <li><a href="#booking" class="hover:text-gold-400">Book Safari Online</a></li>
+                    <li><a href="#reviews" class="hover:text-gold-400">Guest Feedback & Comments</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-4 font-title">Safari Parks</h4>
+                <ul class="space-y-2 text-xs">
+                    <li><a href="#booking" onclick="preselectPark('Yala National Park Block 01')" class="hover:text-gold-400">Yala Block 01</a></li>
+                    <li><a href="#booking" onclick="preselectPark('Weheragala Safari')" class="hover:text-gold-400">Weheragala (Block 05)</a></li>
+                    <li><a href="#booking" onclick="preselectPark('Lunugamvehera National Park')" class="hover:text-gold-400">Lunugamvehera Park</a></li>
+                    <li><a href="#booking" onclick="preselectPark('Bundala National Park')" class="hover:text-gold-400">Bundala Sanctuary</a></li>
+                    <li><a href="#booking" onclick="preselectPark('Udawalawe National Park')" class="hover:text-gold-400">Udawalawe Elephant Reserve</a></li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-white font-bold mb-4 font-title">Follow Wildlife Updates</h4>
+                <div class="flex gap-3 text-lg mb-4">
+                    <a href="#" class="w-9 h-9 rounded-full bg-safari-900 border border-safari-800 flex items-center justify-center hover:text-gold-400 transition"><i class="fa-brands fa-facebook-f"></i></a>
+                    <a href="#" class="w-9 h-9 rounded-full bg-safari-900 border border-safari-800 flex items-center justify-center hover:text-gold-400 transition"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#" class="w-9 h-9 rounded-full bg-safari-900 border border-safari-800 flex items-center justify-center hover:text-gold-400 transition"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#" class="w-9 h-9 rounded-full bg-safari-900 border border-safari-800 flex items-center justify-center hover:text-gold-400 transition"><i class="fa-brands fa-tripadvisor"></i></a>
                 </div>
+                <p class="text-xs text-slate-500">© 2026 Weheragala Safari. All Rights Reserved.</p>
             </div>
         </div>
     </footer>
 
-    <!-- Booking Modal -->
-    <div v-if="bookingModal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/80 backdrop-blur-sm">
-        <div class="bg-slate-900 border border-amber-500/30 rounded-2xl max-w-lg w-full p-6 sm:p-8 space-y-6 relative shadow-2xl">
-            <button @click="bookingModal = false" class="absolute top-4 right-4 text-slate-400 hover:text-white text-xl">
-                <i class="fa-solid fa-xmark"></i>
-            </button>
+    <!-- Payment Checkout Modal -->
+    <div id="paymentModal" class="fixed inset-0 z-50 bg-black/80 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="bg-safari-900 text-white w-full max-w-md rounded-2xl border border-gold-500/40 shadow-2xl p-6 relative">
+            <button onclick="closeModal('paymentModal')" class="absolute top-4 right-4 text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
 
-            <div class="space-y-1 border-b border-slate-800 pb-4">
-                <span class="text-xs text-amber-400 font-bold uppercase tracking-wider">Reserve Your Safari</span>
-                <h3 class="font-serif text-2xl font-bold text-white">{{ selectedPackage ? selectedPackage.title : 'Custom Safari Reservation' }}</h3>
+            <div class="text-center mb-6">
+                <div class="w-12 h-12 bg-gold-500/20 text-gold-400 rounded-full flex items-center justify-center mx-auto mb-2 text-2xl">
+                    <i class="fa-solid fa-shield-halved"></i>
+                </div>
+                <h3 class="font-title text-xl font-bold text-white">Secure Checkout</h3>
+                <p class="text-xs text-slate-400">Amount to Pay: <strong id="modalPayAmount" class="text-gold-400 text-base">$55.00</strong></p>
             </div>
 
-            <form @submit.prevent="submitBooking" class="space-y-4">
-                <div>
-                    <label class="block text-xs font-semibold text-slate-300 uppercase mb-1">Your Full Name</label>
-                    <input type="text" v-model="form.name" required placeholder="e.g. John Doe" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-amber-500">
-                </div>
+            <!-- Payment Method Tabs -->
+            <div class="flex border-b border-safari-800 mb-4 text-xs font-semibold">
+                <button type="button" onclick="switchPayTab('card')" id="payTabCard" class="flex-1 py-2 text-gold-400 border-b-2 border-gold-500">Credit Card</button>
+                <button type="button" onclick="switchPayTab('paypal')" id="payTabPaypal" class="flex-1 py-2 text-slate-400">PayPal</button>
+                <button type="button" onclick="switchPayTab('stripe')" id="payTabStripe" class="flex-1 py-2 text-slate-400">Stripe Quick</button>
+            </div>
 
-                <div class="grid grid-cols-2 gap-4">
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-300 uppercase mb-1">Safari Date</label>
-                        <input type="date" v-model="form.date" required class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-amber-500">
+            <form onsubmit="processPayment(event)" class="space-y-4 text-xs">
+                <div id="cardFields">
+                    <label class="block mb-1 text-slate-300">Cardholder Name</label>
+                    <input type="text" required value="John Doe" class="w-full bg-safari-950 border border-safari-700 rounded-lg p-2.5 text-white mb-3 focus:outline-none">
+
+                    <label class="block mb-1 text-slate-300">Card Number</label>
+                    <div class="relative mb-3">
+                        <input type="text" required placeholder="4532 •••• •••• 8910" value="4532 8901 2345 6789" class="w-full bg-safari-950 border border-safari-700 rounded-lg p-2.5 text-white focus:outline-none">
+                        <i class="fa-brands fa-cc-visa absolute right-3 top-3 text-lg text-slate-400"></i>
                     </div>
-                    <div>
-                        <label class="block text-xs font-semibold text-slate-300 uppercase mb-1">Guests Count</label>
-                        <select v-model="form.guests" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-amber-500">
-                            <option v-for="n in 7" :key="n" :value="n">{{ n }} Guest{{ n > 1 ? 's' : '' }}</option>
-                        </select>
+
+                    <div class="grid grid-cols-2 gap-3">
+                        <div>
+                            <label class="block mb-1 text-slate-300">Expiry</label>
+                            <input type="text" required placeholder="MM/YY" value="08/28" class="w-full bg-safari-950 border border-safari-700 rounded-lg p-2.5 text-white focus:outline-none">
+                        </div>
+                        <div>
+                            <label class="block mb-1 text-slate-300">CVV / CVC</label>
+                            <input type="password" required placeholder="123" value="888" class="w-full bg-safari-950 border border-safari-700 rounded-lg p-2.5 text-white focus:outline-none">
+                        </div>
                     </div>
                 </div>
 
-                <div>
-                    <label class="block text-xs font-semibold text-slate-300 uppercase mb-1">Pickup Hotel / Location</label>
-                    <input type="text" v-model="form.hotel" required placeholder="e.g. Cinnamon Wild Yala / Tissa Hotel" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-amber-500">
-                </div>
-
-                <div>
-                    <label class="block text-xs font-semibold text-slate-300 uppercase mb-1">WhatsApp Number / Phone</label>
-                    <input type="tel" v-model="form.phone" required placeholder="+1 234 567 890" class="w-full bg-slate-800 border border-slate-700 rounded-lg px-3 py-2 text-sm text-white focus:outline-none focus:border-amber-500">
-                </div>
-
-                <div class="p-4 bg-slate-950 rounded-xl border border-slate-800 flex justify-between items-center text-xs">
-                    <span class="text-slate-400">Estimated Jeep Rate:</span>
-                    <span class="text-base font-bold text-amber-400">
-                        {{ calculateEstimatedPrice() }}
-                    </span>
-                </div>
-
-                <button type="submit" class="w-full bg-gradient-to-r from-emerald-600 to-emerald-500 hover:from-emerald-500 hover:to-emerald-600 text-white font-bold py-3 rounded-xl transition shadow-lg shadow-emerald-600/20 flex items-center justify-center gap-2">
-                    <i class="fa-brands fa-whatsapp text-lg"></i> Send Booking via WhatsApp
+                <button type="submit" id="paySubmitBtn" class="w-full bg-gold-500 hover:bg-gold-400 text-safari-950 font-extrabold py-3 rounded-xl transition mt-4 text-sm flex items-center justify-center gap-2">
+                    <i class="fa-solid fa-lock"></i> Authorize & Pay
                 </button>
             </form>
         </div>
     </div>
 
-    <!-- Floating WhatsApp Action Button -->
-    <a href="https://wa.me/94771234567?text=Hi!%20I%20would%20like%20to%20inquire%20about%20a%20Yala/Bundala%20Safari%20tour." target="_blank" class="fixed bottom-6 right-6 z-40 bg-emerald-500 hover:bg-emerald-600 text-white w-14 h-14 rounded-full flex items-center justify-center text-3xl shadow-2xl transition transform hover:scale-110">
+    <!-- Booking Confirmation Modal -->
+    <div id="confirmationModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden flex items-center justify-center p-4">
+        <div class="bg-white dark:bg-safari-900 text-slate-800 dark:text-white w-full max-w-lg rounded-2xl border border-gold-500/50 shadow-2xl p-6 sm:p-8 relative max-h-[90vh] overflow-y-auto">
+            <div class="text-center mb-6">
+                <div class="w-16 h-16 bg-emerald-500/20 text-emerald-500 rounded-full flex items-center justify-center mx-auto mb-3 text-3xl">
+                    <i class="fa-solid fa-circle-check"></i>
+                </div>
+                <h3 class="font-title text-2xl font-extrabold text-safari-950 dark:text-white">Booking Confirmed!</h3>
+                <p class="text-xs text-slate-500 dark:text-slate-400">Receipt copy sent to <span id="confirmEmail" class="font-bold text-gold-500"></span></p>
+            </div>
+
+            <!-- Receipt Card -->
+            <div class="bg-safari-50 dark:bg-safari-950 p-4 rounded-xl border border-slate-200 dark:border-safari-800 space-y-3 text-xs mb-6">
+                <div class="flex justify-between border-b pb-2 border-slate-200 dark:border-safari-800">
+                    <span class="text-slate-500">Booking Reference:</span>
+                    <strong id="confirmRef" class="font-mono text-gold-600 dark:text-gold-400 text-sm">WS-89412</strong>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-slate-500">Guest Name:</span>
+                    <strong id="confirmName" class="text-slate-800 dark:text-white">John Doe</strong>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-slate-500">Safari Destination:</span>
+                    <strong id="confirmPark" class="text-slate-800 dark:text-white">Weheragala Safari</strong>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-slate-500">Date & Package:</span>
+                    <strong id="confirmDateSlot" class="text-slate-800 dark:text-white">Morning (4 Hours)</strong>
+                </div>
+                <div class="flex justify-between">
+                    <span class="text-slate-500">Pickup Location:</span>
+                    <strong id="confirmHotel" class="text-slate-800 dark:text-white">Kinnara Hotel</strong>
+                </div>
+                <div class="flex justify-between border-t pt-2 border-slate-200 dark:border-safari-800 text-sm">
+                    <span class="font-bold">Total Paid:</span>
+                    <strong id="confirmTotal" class="text-gold-600 dark:text-gold-400 font-bold">$55.00</strong>
+                </div>
+            </div>
+
+            <div class="flex gap-3">
+                <button onclick="window.print()" class="flex-1 bg-slate-200 dark:bg-safari-800 text-slate-800 dark:text-white font-bold py-3 rounded-xl text-xs hover:bg-slate-300">
+                    <i class="fa-solid fa-print mr-1"></i> Print Receipt
+                </button>
+                <button onclick="closeModal('confirmationModal')" class="flex-1 bg-gold-500 text-safari-950 font-bold py-3 rounded-xl text-xs hover:bg-gold-400">
+                    Done
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Admin Dashboard Modal -->
+    <div id="adminModal" class="fixed inset-0 z-50 bg-black/85 backdrop-blur-md hidden flex items-center justify-center p-2 sm:p-6">
+        <div class="bg-safari-900 text-white w-full max-w-6xl h-[90vh] rounded-2xl border border-gold-500/40 shadow-2xl flex flex-col overflow-hidden">
+            <!-- Admin Top Bar -->
+            <div class="bg-safari-950 px-6 py-4 border-b border-safari-800 flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                    <div class="w-8 h-8 rounded-full bg-gold-500 text-safari-950 flex items-center justify-center font-bold">
+                        <i class="fa-solid fa-user-shield text-sm"></i>
+                    </div>
+                    <div>
+                        <h3 class="font-title font-bold text-base text-white">Weheragala Admin Dashboard</h3>
+                        <p class="text-[10px] text-slate-400">Booking & Feedback Management System</p>
+                    </div>
+                </div>
+                <button onclick="closeModal('adminModal')" class="text-slate-400 hover:text-white"><i class="fa-solid fa-xmark text-xl"></i></button>
+            </div>
+
+            <!-- Admin Body Grid -->
+            <div class="flex-1 overflow-y-auto p-6 space-y-6">
+                <!-- KPI Stats Cards -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+                    <div class="bg-safari-950 p-4 rounded-xl border border-safari-800">
+                        <p class="text-xs text-slate-400">Total Bookings</p>
+                        <p id="kpiTotalBookings" class="text-2xl font-extrabold text-gold-400 mt-1">0</p>
+                    </div>
+                    <div class="bg-safari-950 p-4 rounded-xl border border-safari-800">
+                        <p class="text-xs text-slate-400">Today's Safari Drivers</p>
+                        <p class="text-2xl font-extrabold text-emerald-400 mt-1">14 Jeeps</p>
+                    </div>
+                    <div class="bg-safari-950 p-4 rounded-xl border border-safari-800">
+                        <p class="text-xs text-slate-400">Pending Confirmations</p>
+                        <p id="kpiPendingBookings" class="text-2xl font-extrabold text-amber-400 mt-1">0</p>
+                    </div>
+                    <div class="bg-safari-950 p-4 rounded-xl border border-safari-800">
+                        <p class="text-xs text-slate-400">Customer Feedback Count</p>
+                        <p id="kpiTotalFeedback" class="text-2xl font-extrabold text-gold-400 mt-1">0</p>
+                    </div>
+                </div>
+
+                <!-- Admin Tabs -->
+                <div class="flex border-b border-safari-800 text-sm font-bold">
+                    <button onclick="switchAdminTab('bookings')" id="adminTabBookings" class="px-5 py-2.5 text-gold-400 border-b-2 border-gold-500 flex items-center gap-2">
+                        <i class="fa-solid fa-list-check"></i> Bookings Management
+                    </button>
+                    <button onclick="switchAdminTab('feedback')" id="adminTabFeedback" class="px-5 py-2.5 text-slate-400 flex items-center gap-2">
+                        <i class="fa-solid fa-comments"></i> Guest Feedback & Reviews
+                    </button>
+                </div>
+
+                <!-- Admin Bookings Tab Content -->
+                <div id="adminBookingsView" class="space-y-4">
+                    <div class="flex flex-col sm:flex-row justify-between items-center gap-4 bg-safari-950 p-4 rounded-xl border border-safari-800">
+                        <h4 class="font-title font-bold text-sm text-gold-400">Customer Bookings Directory</h4>
+                        <div class="flex gap-2 text-xs">
+                            <button onclick="exportCSV()" class="bg-safari-800 hover:bg-safari-700 text-white font-bold px-3 py-2 rounded-lg border border-safari-700 flex items-center gap-1.5 transition">
+                                <i class="fa-solid fa-file-csv text-emerald-400"></i> Export CSV
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Admin Table -->
+                    <div class="overflow-x-auto rounded-xl border border-safari-800 bg-safari-950">
+                        <table class="w-full text-left text-xs text-slate-300">
+                            <thead class="bg-safari-800 text-gold-400 uppercase font-semibold text-[10px] tracking-wider">
+                                <tr>
+                                    <th class="p-3">Ref ID</th>
+                                    <th class="p-3">Customer</th>
+                                    <th class="p-3">Park</th>
+                                    <th class="p-3">Date</th>
+                                    <th class="p-3">Guests</th>
+                                    <th class="p-3">Amount</th>
+                                    <th class="p-3">Status</th>
+                                    <th class="p-3 text-center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminTableBody" class="divide-y divide-safari-800">
+                                <!-- Dynamic Admin rows loaded via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Admin Feedback Tab Content -->
+                <div id="adminFeedbackView" class="hidden space-y-4">
+                    <div class="flex flex-col sm:flex-row justify-between items-center gap-4 bg-safari-950 p-4 rounded-xl border border-safari-800">
+                        <h4 class="font-title font-bold text-sm text-gold-400">Guest Feedback & Comments Manager</h4>
+                        <span class="text-xs text-slate-400">Manage, moderate or remove user reviews</span>
+                    </div>
+
+                    <div class="overflow-x-auto rounded-xl border border-safari-800 bg-safari-950">
+                        <table class="w-full text-left text-xs text-slate-300">
+                            <thead class="bg-safari-800 text-gold-400 uppercase font-semibold text-[10px] tracking-wider">
+                                <tr>
+                                    <th class="p-3">Author</th>
+                                    <th class="p-3">Park</th>
+                                    <th class="p-3">Rating</th>
+                                    <th class="p-3">Comment Preview</th>
+                                    <th class="p-3">Date</th>
+                                    <th class="p-3 text-center">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody id="adminFeedbackTableBody" class="divide-y divide-safari-800">
+                                <!-- Dynamic Feedback rows loaded via JS -->
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Custom Toast Message Component -->
+    <div id="toastNotification" class="fixed bottom-6 right-6 z-50 bg-safari-900 border border-gold-500/60 text-white px-5 py-3.5 rounded-xl shadow-2xl transition-all duration-300 transform translate-y-20 opacity-0 flex items-center gap-3 max-w-md">
+        <i id="toastIcon" class="fa-solid fa-circle-check text-gold-400 text-xl"></i>
+        <span id="toastText" class="text-xs font-semibold">Action completed successfully.</span>
+    </div>
+
+    <!-- Floating Utilities -->
+    <a href="https://wa.me/94771234567?text=Hello%20Weheragala%20Safari!%20I%20want%20to%20inquire%20about%20a%20safari." target="_blank" title="Chat on WhatsApp" class="fixed bottom-6 left-6 z-40 w-14 h-14 rounded-full bg-emerald-500 text-white flex items-center justify-center text-2xl shadow-2xl hover:scale-110 transition duration-300 glow-gold">
         <i class="fa-brands fa-whatsapp"></i>
     </a>
 
-    <!-- Vue App Script -->
+    <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" id="backToTopBtn" class="fixed bottom-6 right-20 z-40 w-11 h-11 rounded-full bg-safari-800 text-gold-400 border border-gold-500/40 flex items-center justify-center text-lg shadow-xl hover:bg-gold-500 hover:text-safari-950 transition">
+        <i class="fa-solid fa-arrow-up"></i>
+    </button>
+
+    <!-- Main JavaScript Logic -->
     <script>
-        const { createApp } = Vue;
+        // Hero Section Background Slideshow Handler
+        let currentHeroIndex = 0;
+        let heroSlideTimer = null;
 
-        createApp({
-            data() {
-                return {
-                    currency: 'USD',
-                    mobileMenuOpen: false,
-                    filterPark: 'all',
-                    bookingModal: false,
-                    selectedPackage: null,
-                    activeFaq: null,
-                    
-                    // Quick Hero Form
-                    quickPark: 'yala',
-                    quickType: 'morning',
-                    quickGuests: 2,
+        function setHeroSlide(index) {
+            const slides = document.querySelectorAll('.hero-slide');
+            const dots = document.querySelectorAll('.hero-dot');
+            if (!slides.length) return;
 
-                    // Booking Form State
-                    form: {
-                        name: '',
-                        date: '',
-                        guests: 2,
-                        hotel: '',
-                        phone: ''
-                    },
-
-                    // Tour Packages Data
-                    packages: [
-                        {
-                            id: 1,
-                            park: 'yala',
-                            parkName: 'Yala National Park',
-                            title: 'Yala Morning Leopard Safari',
-                            time: '5:00 AM - 10:00 AM',
-                            priceUSD: 85,
-                            priceLKR: 25500,
-                            image: 'https://images.unsplash.com/photo-1534177616072-ef7dc120449d?auto=format&fit=crop&q=80&w=600',
-                            description: 'Best early morning game drive for maximum leopard and sloth bear sightings near water holes.',
-                            inclusions: ['Private 4x4 Toyota Hilux Jeep', 'Free Hotel Pickup & Drop', 'Complimentary Cold Water & Juice', 'Free Binoculars']
-                        },
-                        {
-                            id: 2,
-                            park: 'yala',
-                            parkName: 'Yala National Park',
-                            title: 'Yala Sunset Evening Safari',
-                            time: '2:00 PM - 6:00 PM',
-                            priceUSD: 80,
-                            priceLKR: 24000,
-                            image: 'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&q=80&w=600',
-                            description: 'Perfect afternoon safari drive ending with golden hour photo opportunities and herds of elephants.',
-                            inclusions: ['Private 4x4 Toyota Hilux Jeep', 'Free Hotel Pickup & Drop', 'Cold Ice Box Drinks', 'Free Binoculars']
-                        },
-                        {
-                            id: 3,
-                            park: 'yala',
-                            parkName: 'Yala National Park',
-                            title: 'Yala VIP Full Day Expedition',
-                            time: '5:00 AM - 6:00 PM',
-                            priceUSD: 160,
-                            priceLKR: 48000,
-                            image: 'https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&q=80&w=600',
-                            description: 'Comprehensive 12-hour wilderness drive deep into Block 1 & Block 5 with beach lunch break.',
-                            inclusions: ['Private 4x4 Luxury Jeep', 'Beach Breakfast & Picnic Lunch', 'Free Binoculars & Coolers', 'Deep Trail Coverage']
-                        },
-                        {
-                            id: 4,
-                            park: 'bundala',
-                            parkName: 'Bundala National Park',
-                            title: 'Bundala Morning Birdwatching Safari',
-                            time: '5:15 AM - 10:00 AM',
-                            priceUSD: 75,
-                            priceLKR: 22500,
-                            image: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&q=80&w=600',
-                            description: 'Peaceful bird sanctuary safari to observe thousands of flamingos, pelicans, and coastal wetlands.',
-                            inclusions: ['Private Modified 4x4 Jeep', 'Free Hotel Pickup & Drop', 'Bird Identification Guide', 'Free Binoculars']
-                        },
-                        {
-                            id: 5,
-                            park: 'bundala',
-                            parkName: 'Bundala National Park',
-                            title: 'Bundala Afternoon Lagoon Safari',
-                            time: '2:00 PM - 6:00 PM',
-                            priceUSD: 75,
-                            priceLKR: 22500,
-                            image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&q=80&w=600',
-                            description: 'Explore scenic sand dunes, saline lagoons, elephants, and sunbathing crocodiles in Bundala.',
-                            inclusions: ['Private 4x4 Jeep', 'Free Hotel Pickup & Drop', 'Refreshing Drinks Box', 'Free Binoculars']
-                        },
-                        {
-                            id: 6,
-                            park: 'combo',
-                            parkName: 'Yala + Bundala Combined',
-                            title: '2-Day Yala & Bundala Master Combo',
-                            time: '2 Consecutive Days',
-                            priceUSD: 150,
-                            priceLKR: 45000,
-                            image: 'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&q=80&w=600',
-                            description: 'Experience both world-famous big game predators at Yala and bird paradise at Bundala.',
-                            inclusions: ['2 Private Safari Game Drives', 'Free Hotel Transfers', 'Breakfast & Refreshments', 'Guaranteed Wildlife Driver']
-                        }
-                    ],
-
-                    galleryImages: [
-                        { url: 'https://images.unsplash.com/photo-1534177616072-ef7dc120449d?auto=format&fit=crop&q=80&w=600', caption: 'Leopard on Rock, Yala', category: 'Wild Leopard' },
-                        { url: 'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?auto=format&fit=crop&q=80&w=600', caption: 'Wild Elephant Herd', category: 'Elephants' },
-                        { url: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&q=80&w=600', caption: 'Flamingos at Lagoon', category: 'Bundala Birds' },
-                        { url: 'https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&q=80&w=600', caption: 'Luxury Safari Jeep', category: '4x4 Fleet' }
-                    ],
-
-                    reviews: [
-                        { id: 1, name: 'David & Sarah', country: 'United Kingdom', park: 'Yala Safari', comment: 'We saw two leopards within the first 2 hours! The jeep driver knew exactly where to go before other vehicles arrived. Highly recommend!' },
-                        { id: 2, name: 'Elena Rostova', country: 'Germany', park: 'Bundala Birding', comment: 'Bundala was magical with thousands of flamingos and wild elephants. Drivers were extremely polite and provided free high quality binoculars.' },
-                        { id: 3, name: 'Sanjaya K.', country: 'Australia', park: '2-Day Combo', comment: 'Everything from hotel pickup in Tissa to park entry was seamless. Very clean jeeps with padded seats. Best safari experience in Sri Lanka.' }
-                    ],
-
-                    faqs: [
-                        { q: 'Where do you offer free hotel pickup and drop-off?', a: 'We offer 100% complimentary pickup and drop-off from hotels in Tissamaharama, Kirinda, Yala Beach, Kataragama, Debarawewa, and Weerawila.' },
-                        { q: 'Are national park entrance tickets included in the jeep rate?', a: 'Jeep rates cover the private 4x4 vehicle, expert driver, hotel transfers, binoculars, and drinks. Park entrance tickets (approx. $25-$30 USD per adult paid in cash LKR at counter) can be pre-arranged by us.' },
-                        { q: 'What is the best time for a safari?', a: 'Morning safaris (5:00 AM) offer cooler temperatures and high animal activity. Afternoon safaris (2:00 PM) offer beautiful golden light and elephant gatherings near water holes.' },
-                        { q: 'How many guests can fit into one safari jeep?', a: 'Our customized Toyota 4x4 jeeps comfortably seat up to 6-7 adult passengers with individual padded seats.' }
-                    ]
-                };
-            },
-
-            computed: {
-                filteredPackages() {
-                    if (this.filterPark === 'all') return this.packages;
-                    return this.packages.filter(p => p.park === this.filterPark);
+            slides.forEach((slide, i) => {
+                if (i === index) {
+                    slide.classList.remove('opacity-0');
+                    slide.classList.add('opacity-100');
+                } else {
+                    slide.classList.remove('opacity-100');
+                    slide.classList.add('opacity-0');
                 }
+            });
+
+            dots.forEach((dot, i) => {
+                if (i === index) {
+                    dot.className = "hero-dot w-2.5 h-2.5 rounded-full bg-gold-500 transition-all scale-125";
+                } else {
+                    dot.className = "hero-dot w-2.5 h-2.5 rounded-full bg-white/50 hover:bg-gold-400 transition-all";
+                }
+            });
+
+            currentHeroIndex = index;
+            resetHeroTimer();
+        }
+
+        function nextHeroSlide() {
+            const slides = document.querySelectorAll('.hero-slide');
+            if (!slides.length) return;
+            const nextIdx = (currentHeroIndex + 1) % slides.length;
+            setHeroSlide(nextIdx);
+        }
+
+        function resetHeroTimer() {
+            if (heroSlideTimer) clearInterval(heroSlideTimer);
+            heroSlideTimer = setInterval(nextHeroSlide, 5000);
+        }
+
+        // Updated Complete Package Data Array with exact rates requested
+        const packagesData = [
+            // Yala Safaris
+            {
+                id: "yala_shared_7h",
+                park: "Yala National Park Block 01",
+                category: "yala",
+                name: "Yala Shared 7h Safari",
+                duration: "7 Hours",
+                basePrice: 15,
+                image: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?q=80&w=800&auto=format&fit=crop",
+                badge: "Shared - $15"
+            },
+            {
+                id: "yala_shared_12h",
+                park: "Yala National Park Block 01",
+                category: "yala",
+                name: "Yala Shared 12h Safari",
+                duration: "12 Hours",
+                basePrice: 35,
+                image: "https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=800&auto=format&fit=crop",
+                badge: "Shared - $35"
+            },
+            {
+                id: "yala_priv_4h_morn",
+                park: "Yala National Park Block 01",
+                category: "yala",
+                name: "Yala Private 4h Morning Safari",
+                duration: "4 Hours (6:00 AM – 10:00 AM)",
+                basePrice: 55,
+                image: "https://images.unsplash.com/photo-1534567153574-2b12153a87f0?q=80&w=800&auto=format&fit=crop",
+                badge: "Private - $55"
+            },
+            {
+                id: "yala_priv_4h_eve",
+                park: "Yala National Park Block 01",
+                category: "yala",
+                name: "Yala Private 4h Evening Safari",
+                duration: "4 Hours (2:30 PM – 6:30 PM)",
+                basePrice: 55,
+                image: "https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=800&auto=format&fit=crop",
+                badge: "Private - $55"
+            },
+            {
+                id: "yala_priv_12h_full",
+                park: "Yala National Park Block 01",
+                category: "yala",
+                name: "Yala Private Full Day 12h Safari",
+                duration: "12 Hours (6:00 AM – 6:00 PM)",
+                basePrice: 110,
+                image: "https://images.unsplash.com/photo-1534567153574-2b12153a87f0?q=80&w=800&auto=format&fit=crop",
+                badge: "Private Full Day - $110"
             },
 
-            methods: {
-                formatPrice(usd, lkr) {
-                    if (this.currency === 'USD') return `$${usd} USD`;
-                    return `Rs. ${lkr.toLocaleString()} LKR`;
-                },
+            // Weheragala Safaris
+            {
+                id: "weheragala_priv_4h_morn",
+                park: "Weheragala Safari",
+                category: "weheragala",
+                name: "Weheragala Private Morning 4h Safari",
+                duration: "4 Hours (6:00 AM – 10:00 AM)",
+                basePrice: 60,
+                image: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?q=80&w=800&auto=format&fit=crop",
+                badge: "Block 05 Special - $60"
+            },
+            {
+                id: "weheragala_priv_4h_eve",
+                park: "Weheragala Safari",
+                category: "weheragala",
+                name: "Weheragala Private Evening 4h Safari",
+                duration: "4 Hours (2:30 PM – 6:30 PM)",
+                basePrice: 60,
+                image: "https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=800&auto=format&fit=crop",
+                badge: "Sunset Special - $60"
+            },
+            {
+                id: "weheragala_priv_12h_full",
+                park: "Weheragala Safari",
+                category: "weheragala",
+                name: "Weheragala Private Full Day 12h Safari",
+                duration: "12 Hours (6:00 AM – 6:00 PM)",
+                basePrice: 115,
+                image: "https://images.unsplash.com/photo-1534567153574-2b12153a87f0?q=80&w=800&auto=format&fit=crop",
+                badge: "Full Wilderness - $115"
+            },
 
-                selectParkFilter(parkKey) {
-                    this.filterPark = parkKey;
-                    const el = document.getElementById('packages');
-                    if (el) el.scrollIntoView({ behavior: 'smooth' });
-                },
+            // Lunugamvehera Safaris
+            {
+                id: "lunugamvehera_priv_4h_morn",
+                park: "Lunugamvehera National Park",
+                category: "lunugamvehera",
+                name: "Lunugamwehera Private Morning 4h Safari",
+                duration: "4 Hours (6:00 AM – 10:00 AM)",
+                basePrice: 60,
+                image: "https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=800&auto=format&fit=crop",
+                badge: "Private - $60"
+            },
+            {
+                id: "lunugamvehera_priv_4h_eve",
+                park: "Lunugamvehera National Park",
+                category: "lunugamvehera",
+                name: "Lunugamwehera Private Evening 4h Safari",
+                duration: "4 Hours (2:30 PM – 6:30 PM)",
+                basePrice: 60,
+                image: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?q=80&w=800&auto=format&fit=crop",
+                badge: "Private - $60"
+            },
+            {
+                id: "lunugamvehera_priv_12h_full",
+                park: "Lunugamvehera National Park",
+                category: "lunugamvehera",
+                name: "Lunugamwehera Private Full Day Safari",
+                duration: "12 Hours (6:00 AM – 6:00 PM)",
+                basePrice: 115,
+                image: "https://images.unsplash.com/photo-1534567153574-2b12153a87f0?q=80&w=800&auto=format&fit=crop",
+                badge: "Private Full Day - $115"
+            },
 
-                openBookingModal(pkg = null) {
-                    this.selectedPackage = pkg;
-                    this.bookingModal = true;
-                },
+            // Bundala Safaris
+            {
+                id: "bundala_priv_4h_morn",
+                park: "Bundala National Park",
+                category: "bundala",
+                name: "Bundala Private Morning 4h Safari",
+                duration: "4 Hours (6:00 AM – 10:00 AM)",
+                basePrice: 55,
+                image: "https://images.unsplash.com/photo-1552728089-57bdde30beb3?q=80&w=800&auto=format&fit=crop",
+                badge: "Bird Special - $55"
+            },
+            {
+                id: "bundala_priv_4h_eve",
+                park: "Bundala National Park",
+                category: "bundala",
+                name: "Bundala Private Evening 4h Safari",
+                duration: "4 Hours (2:30 PM – 6:30 PM)",
+                basePrice: 55,
+                image: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=800&auto=format&fit=crop",
+                badge: "Lagoon View - $55"
+            },
+            {
+                id: "bundala_priv_12h_full",
+                park: "Bundala National Park",
+                category: "bundala",
+                name: "Bundala Full Day Safari",
+                duration: "12 Hours (6:00 AM – 6:00 PM)",
+                basePrice: 110,
+                image: "https://images.unsplash.com/photo-1552728089-57bdde30beb3?q=80&w=800&auto=format&fit=crop",
+                badge: "Full Day Wetland - $110"
+            },
 
-                triggerQuickBooking() {
-                    const matched = this.packages.find(p => p.park === this.quickPark);
-                    this.openBookingModal(matched || null);
-                },
+            // Udawalawe Safaris
+            {
+                id: "udawalawe_priv_4h",
+                park: "Udawalawe National Park",
+                category: "udawalawe",
+                name: "Udawalawa Private Morning or Evening 4h Safari",
+                duration: "4 Hours (Morning or Evening)",
+                basePrice: 30,
+                image: "https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?q=80&w=800&auto=format&fit=crop",
+                badge: "Best Value - $30"
+            },
+            {
+                id: "udawalawe_priv_6h",
+                park: "Udawalawe National Park",
+                category: "udawalawe",
+                name: "Udawalawa Private 6h Safari",
+                duration: "6 Hours",
+                basePrice: 65,
+                image: "https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?q=80&w=800&auto=format&fit=crop",
+                badge: "Extended Safari - $65"
+            }
+        ];
 
-                calculateEstimatedPrice() {
-                    if (this.selectedPackage) {
-                        return this.formatPrice(this.selectedPackage.priceUSD, this.selectedPackage.priceLKR);
-                    }
-                    return this.formatPrice(85, 25500);
-                },
+        const galleryData = [
+            { tag: "leopard", title: "Sri Lankan Leopard Resting", url: "https://images.unsplash.com/photo-1534567153574-2b12153a87f0?q=80&w=800&auto=format&fit=crop" },
+            { tag: "elephant", title: "Elephant Herd in Udawalawe", url: "https://images.unsplash.com/photo-1557050543-4d5f4e07ef46?q=80&w=800&auto=format&fit=crop" },
+            { tag: "bird", title: "Greater Flamingos at Bundala", url: "https://images.unsplash.com/photo-1552728089-57bdde30beb3?q=80&w=800&auto=format&fit=crop" },
+            { tag: "jeep", title: "Customized 4x4 Hilux Safari Jeep", url: "https://images.unsplash.com/photo-1516426122078-c23e76319801?q=80&w=800&auto=format&fit=crop" },
+            { tag: "reptile", title: "Mugger Crocodile by Lake Shore", url: "https://images.unsplash.com/photo-1518709268805-4e9042af9f23?q=80&w=800&auto=format&fit=crop" },
+            { tag: "leopard", title: "Young Male Leopard Hunting", url: "https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?q=80&w=800&auto=format&fit=crop" }
+        ];
 
-                toggleFaq(index) {
-                    this.activeFaq = this.activeFaq === index ? null : index;
-                },
+        let reviewsData = [
+            { id: 1, name: "Alexander Wright", rating: 5, park: "Weheragala Safari", comment: "Incredible morning safari! We saw 2 leopards on tree branches with zero crowds. Our guide Chaminda had super sharp eyes.", date: "2026-07-28", country: "United Kingdom" },
+            { id: 2, name: "Sophie Meier", rating: 5, park: "Yala National Park", comment: "The 4x4 jeep was extremely comfortable with high seats. High level of safety and punctuality. Unforgettable wildlife photos!", date: "2026-07-24", country: "Germany" },
+            { id: 3, name: "Lucas Vance", rating: 5, park: "Udawalawe National Park", comment: "Breathtaking views of elephants roaming. The breakfast box was fresh and cold drinks were served. 10/10 service!", date: "2026-07-19", country: "Australia" }
+        ];
 
-                submitBooking() {
-                    const pkgTitle = this.selectedPackage ? this.selectedPackage.title : 'Custom Safari Tour';
-                    const msg = `*New Safari Inquiry - Ceylon Safari*%0A%0A` +
-                                `*Package:* ${pkgTitle}%0A` +
-                                `*Name:* ${this.form.name}%0A` +
-                                `*Date:* ${this.form.date}%0A` +
-                                `*Guests:* ${this.form.guests} Person(s)%0A` +
-                                `*Pickup Hotel:* ${this.form.hotel}%0A` +
-                                `*Contact:* ${this.form.phone}`;
-                    
-                    window.open(`https://wa.me/94778003605 ?text=${msg}`, '_blank');
-                    this.bookingModal = false;
+        let bookingsData = [
+            { id: "WS-89412", name: "John Doe", email: "john@example.com", phone: "+1 234 567 8900", park: "Weheragala Safari", slot: "Weheragala Private Morning 4h Safari", date: "2026-08-10", guests: "2 Adults", total: "$60.00", status: "Confirmed" },
+            { id: "WS-89413", name: "Emma Watson", email: "emma@example.com", phone: "+44 7911 123456", park: "Yala National Park Block 01", slot: "Yala Private Full Day 12h Safari", date: "2026-08-12", guests: "4 Adults", total: "$110.00", status: "Confirmed" }
+        ];
+
+        let activePayableBooking = null;
+
+        // Morning Safari (6:00 AM departure) 12-Hour Advance Rule Checker
+        function validateMorningSafariTime(safariDateStr, packageNameStr) {
+            const isMorning = packageNameStr.toLowerCase().includes('morning') || packageNameStr.includes('6:00 AM');
+            if (!isMorning) return { valid: true };
+
+            const today = new Date();
+            const targetDate = new Date(safariDateStr + 'T06:00:00'); // 6:00 AM departure on safari date
+            const advanceHoursLimit = 12;
+
+            const timeDiffHours = (targetDate.getTime() - today.getTime()) / (1000 * 60 * 60);
+
+            if (timeDiffHours < advanceHoursLimit) {
+                return {
+                    valid: false,
+                    message: "Morning Safaris departure is at 6:00 AM. Bookings must be placed at least 12 hours in advance (before 6:00 PM on the day before)."
+                };
+            }
+            return { valid: true };
+        }
+
+        // Render Packages Cards
+        function renderPackages(filter = 'all') {
+            const container = document.getElementById('packagesContainer');
+            if (!container) return;
+
+            const filtered = filter === 'all' 
+                ? packagesData 
+                : packagesData.filter(p => p.category === filter);
+
+            container.innerHTML = filtered.map(pkg => `
+                <div class="rounded-2xl overflow-hidden bg-white dark:bg-safari-900 border border-safari-200 dark:border-safari-800 shadow-xl flex flex-col group hover:border-gold-500/50 transition duration-300">
+                    <div class="relative h-48 overflow-hidden">
+                        <img src="${pkg.image}" alt="${pkg.name}" class="w-full h-full object-cover group-hover:scale-105 transition duration-500">
+                        <div class="absolute top-3 right-3 bg-safari-950/85 backdrop-blur-md text-gold-400 text-xs px-3 py-1 rounded-full font-bold border border-gold-500/30">
+                            ${pkg.badge}
+                        </div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col justify-between space-y-4">
+                        <div>
+                            <span class="text-[11px] font-bold text-gold-600 dark:text-gold-400 uppercase tracking-widest block mb-1">${pkg.park}</span>
+                            <h3 class="font-title text-lg font-bold text-safari-950 dark:text-white leading-snug">${pkg.name}</h3>
+                            <p class="text-xs text-slate-500 dark:text-slate-400 mt-2 flex items-center gap-1.5">
+                                <i class="fa-regular fa-clock text-gold-500"></i> ${pkg.duration}
+                            </p>
+                        </div>
+                        <div class="pt-4 border-t border-slate-100 dark:border-safari-800 flex items-center justify-between">
+                            <div>
+                                <span class="text-[10px] text-slate-400 uppercase block">Total Price</span>
+                                <span class="font-title text-2xl font-extrabold text-gold-500">$${pkg.basePrice}</span>
+                            </div>
+                            <button onclick="preselectPackage('${pkg.park}', '${pkg.id}')" class="px-4 py-2.5 rounded-xl bg-gold-500 hover:bg-gold-400 text-safari-950 font-extrabold text-xs tracking-wider uppercase transition shadow-md">
+                                Book Now
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterPackages(category) {
+            document.querySelectorAll('#packageFilterButtons button').forEach(btn => {
+                btn.className = "package-tab-btn px-5 py-2.5 rounded-full text-sm font-bold bg-white dark:bg-safari-800 text-slate-700 dark:text-slate-300 hover:bg-gold-500 hover:text-safari-950 transition";
+            });
+            event.target.className = "package-tab-btn active px-5 py-2.5 rounded-full text-sm font-bold bg-safari-700 text-white shadow-md";
+            renderPackages(category);
+        }
+
+        // Render Gallery
+        function renderGallery(filter = 'all') {
+            const grid = document.getElementById('galleryGrid');
+            if (!grid) return;
+
+            const filtered = filter === 'all' ? galleryData : galleryData.filter(g => g.tag === filter);
+
+            grid.innerHTML = filtered.map(item => `
+                <div class="relative h-60 rounded-xl overflow-hidden group shadow-lg">
+                    <img src="${item.url}" alt="${item.title}" class="w-full h-full object-cover group-hover:scale-110 transition duration-700">
+                    <div class="absolute inset-0 bg-gradient-to-t from-safari-950/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-4 flex items-end">
+                        <span class="text-xs font-bold text-gold-300 font-title">${item.title}</span>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function filterGallery(tag) {
+            document.querySelectorAll('.gallery-tag').forEach(btn => {
+                btn.className = "gallery-tag px-4 py-2 rounded-full text-xs font-bold bg-white dark:bg-safari-800 text-slate-700 dark:text-slate-300 hover:bg-gold-500 hover:text-safari-950 transition";
+            });
+            event.target.className = "gallery-tag active px-4 py-2 rounded-full text-xs font-bold bg-safari-800 text-white";
+            renderGallery(tag);
+        }
+
+        // Render Reviews
+        function renderReviews(ratingFilter = 'all') {
+            const container = document.getElementById('reviewsContainer');
+            if (!container) return;
+
+            let filtered = reviewsData;
+            if (ratingFilter !== 'all') {
+                filtered = reviewsData.filter(r => r.rating === parseInt(ratingFilter));
+            }
+
+            if (!filtered.length) {
+                container.innerHTML = `<div class="col-span-3 text-center py-8 text-slate-400 text-xs">No reviews found for this rating filter yet.</div>`;
+                return;
+            }
+
+            container.innerHTML = filtered.map(rev => `
+                <div class="bg-white dark:bg-safari-900 p-6 rounded-2xl shadow-xl border border-safari-200 dark:border-safari-800 flex flex-col justify-between">
+                    <div>
+                        <div class="flex justify-between items-start mb-3">
+                            <div>
+                                <h4 class="font-title font-bold text-sm text-safari-950 dark:text-white">${rev.name}</h4>
+                                <span class="text-[11px] text-slate-400">${rev.country || 'Traveler'} • ${rev.park}</span>
+                            </div>
+                            <div class="text-gold-500 text-xs flex gap-0.5">
+                                ${'<i class="fa-solid fa-star"></i>'.repeat(rev.rating)}
+                            </div>
+                        </div>
+                        <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed italic">"${rev.comment}"</p>
+                    </div>
+                    <span class="text-[10px] text-slate-400 mt-4 block text-right">${rev.date}</span>
+                </div>
+            `).join('');
+        }
+
+        function filterFeedback(star) {
+            document.querySelectorAll('.fb-filter-btn').forEach(btn => {
+                btn.className = "fb-filter-btn px-3 py-1.5 rounded-lg bg-slate-100 dark:bg-safari-800 text-slate-700 dark:text-slate-300 font-semibold hover:bg-gold-500 hover:text-safari-950 transition";
+            });
+            if (star === 'all') {
+                document.getElementById('fbBtn-all').className = "fb-filter-btn px-3 py-1.5 rounded-lg bg-safari-700 text-white font-bold";
+            } else {
+                document.getElementById(`fbBtn-${star}`).className = "fb-filter-btn px-3 py-1.5 rounded-lg bg-safari-700 text-white font-bold";
+            }
+            renderReviews(star);
+        }
+
+        // Dynamic Form Sync & Calculation
+        function updateFormPackages() {
+            const parkSelect = document.getElementById('bookPark');
+            const pkgSelect = document.getElementById('bookPackage');
+            if (!parkSelect || !pkgSelect) return;
+
+            const selectedPark = parkSelect.value;
+            const availablePackages = packagesData.filter(p => p.park === selectedPark);
+
+            pkgSelect.innerHTML = availablePackages.map(p => `
+                <option value="${p.id}">${p.name} - $${p.basePrice}</option>
+            `).join('');
+        }
+
+        function calculateTotal() {
+            const parkSelect = document.getElementById('bookPark');
+            const pkgSelect = document.getElementById('bookPackage');
+            const numAdults = parseInt(document.getElementById('numAdults').value) || 1;
+            const numChildren = parseInt(document.getElementById('numChildren').value) || 0;
+
+            if (!pkgSelect || !pkgSelect.value) return;
+
+            const selectedPkg = packagesData.find(p => p.id === pkgSelect.value);
+            if (!selectedPkg) return;
+
+            const total = selectedPkg.basePrice;
+
+            document.getElementById('summaryPark').innerText = selectedPkg.park;
+            document.getElementById('summarySlot').innerText = selectedPkg.name;
+            document.getElementById('summaryBasePrice').innerText = '$' + selectedPkg.basePrice.toFixed(2);
+            document.getElementById('summaryGuestCount').innerText = `${numAdults + numChildren} Guests`;
+            document.getElementById('summaryGuestPrice').innerText = 'Included';
+            document.getElementById('summaryTotal').innerText = '$' + total.toFixed(2);
+        }
+
+        function preselectPackage(parkName, pkgId) {
+            const parkSelect = document.getElementById('bookPark');
+            if (parkSelect) {
+                parkSelect.value = parkName;
+                updateFormPackages();
+                const pkgSelect = document.getElementById('bookPackage');
+                if (pkgSelect) pkgSelect.value = pkgId;
+                calculateTotal();
+            }
+            document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function preselectPark(parkName) {
+            const parkSelect = document.getElementById('bookPark');
+            if (parkSelect) {
+                parkSelect.value = parkName;
+                updateFormPackages();
+                calculateTotal();
+            }
+            document.getElementById('booking').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function quickBookHandler(e) {
+            e.preventDefault();
+            const park = document.getElementById('heroParkSelect').value;
+            const date = document.getElementById('heroDateInput').value;
+
+            preselectPark(park);
+            if (date) {
+                document.getElementById('bookDate').value = date;
+            }
+        }
+
+        function handleBookingSubmit(e) {
+            e.preventDefault();
+
+            const safariDate = document.getElementById('bookDate').value;
+            const pkgSelect = document.getElementById('bookPackage');
+            const selectedPkg = packagesData.find(p => p.id === pkgSelect.value);
+
+            if (selectedPkg) {
+                const validation = validateMorningSafariTime(safariDate, selectedPkg.name);
+                if (!validation.valid) {
+                    showToast(validation.message, "fa-circle-exclamation");
+                    alert(validation.message);
+                    return;
                 }
             }
-        }).mount('#app');
+
+            const totalStr = document.getElementById('summaryTotal').innerText;
+            document.getElementById('modalPayAmount').innerText = totalStr;
+
+            activePayableBooking = {
+                id: 'WS-' + Math.floor(10000 + Math.random() * 90000),
+                name: document.getElementById('custName').value,
+                email: document.getElementById('custEmail').value,
+                phone: document.getElementById('custPhone').value,
+                park: document.getElementById('bookPark').value,
+                slot: selectedPkg ? selectedPkg.name : 'Safari Drive',
+                date: safariDate,
+                guests: `${document.getElementById('numAdults').value} Adults, ${document.getElementById('numChildren').value} Children`,
+                hotel: document.getElementById('custHotel').value,
+                total: totalStr,
+                status: 'Confirmed'
+            };
+
+            openModal('paymentModal');
+        }
+
+        function processPayment(e) {
+            e.preventDefault();
+            closeModal('paymentModal');
+
+            if (activePayableBooking) {
+                bookingsData.unshift(activePayableBooking);
+                
+                document.getElementById('confirmRef').innerText = activePayableBooking.id;
+                document.getElementById('confirmName').innerText = activePayableBooking.name;
+                document.getElementById('confirmEmail').innerText = activePayableBooking.email;
+                document.getElementById('confirmPark').innerText = activePayableBooking.park;
+                document.getElementById('confirmDateSlot').innerText = `${activePayableBooking.date} (${activePayableBooking.slot})`;
+                document.getElementById('confirmHotel').innerText = activePayableBooking.hotel;
+                document.getElementById('confirmTotal').innerText = activePayableBooking.total;
+
+                renderAdminTable();
+                openModal('confirmationModal');
+                showToast("Payment Authorized & Safari Booked!", "fa-circle-check");
+            }
+        }
+
+        // Star Rating Input
+        function setStarRating(val) {
+            document.getElementById('fbRatingVal').value = val;
+            const stars = document.querySelectorAll('.star-btn');
+            stars.forEach((star, idx) => {
+                if (idx < val) {
+                    star.className = "fa-solid fa-star star-btn text-gold-500";
+                } else {
+                    star.className = "fa-regular fa-star star-btn text-slate-400";
+                }
+            });
+            const textMap = ["1 Star - Needs Improvement", "2 Stars - Fair", "3 Stars - Good", "4 Stars - Very Good!", "5 Stars - Excellent!"];
+            document.getElementById('starRatingText').innerText = textMap[val - 1];
+        }
+
+        function handleFeedbackSubmit(e) {
+            e.preventDefault();
+            const newRev = {
+                id: reviewsData.length + 1,
+                name: document.getElementById('fbName').value,
+                email: document.getElementById('fbEmail').value,
+                country: document.getElementById('fbCountry').value || 'Traveler',
+                park: document.getElementById('fbPark').value,
+                rating: parseInt(document.getElementById('fbRatingVal').value),
+                comment: document.getElementById('fbComment').value,
+                date: new Date().toISOString().split('T')[0]
+            };
+
+            reviewsData.unshift(newRev);
+            renderReviews();
+            renderAdminFeedbackTable();
+            showToast("Thank you! Your review has been posted.", "fa-comment-check");
+            e.target.reset();
+            setStarRating(5);
+        }
+
+        function handleContactSubmit(e) {
+            e.preventDefault();
+            showToast("Enquiry Sent! Our agent will contact you shortly.", "fa-paper-plane");
+            e.target.reset();
+        }
+
+        // Modal Helpers
+        function openModal(id) {
+            const el = document.getElementById(id);
+            if (el) el.classList.remove('hidden');
+        }
+
+        function closeModal(id) {
+            const el = document.getElementById(id);
+            if (el) el.classList.add('hidden');
+        }
+
+        function toggleMobileMenu() {
+            const menu = document.getElementById('mobileMenu');
+            menu.classList.toggle('hidden');
+        }
+
+        function toggleDarkMode() {
+            document.documentElement.classList.toggle('dark');
+            const icon = document.getElementById('themeIcon');
+            if (document.documentElement.classList.contains('dark')) {
+                icon.className = "fa-solid fa-sun text-base text-gold-400";
+            } else {
+                icon.className = "fa-solid fa-moon text-base text-gold-400";
+            }
+        }
+
+        function showToast(msg, iconClass = "fa-circle-check") {
+            const toast = document.getElementById('toastNotification');
+            const text = document.getElementById('toastText');
+            const icon = document.getElementById('toastIcon');
+
+            text.innerText = msg;
+            icon.className = `fa-solid ${iconClass} text-gold-400 text-xl`;
+
+            toast.classList.remove('translate-y-20', 'opacity-0');
+            setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0');
+            }, 4000);
+        }
+
+        function toggleFaq(id) {
+            const content = document.getElementById(`faqContent-${id}`);
+            const icon = document.getElementById(`faqIcon-${id}`);
+            content.classList.toggle('hidden');
+            icon.classList.toggle('rotate-180');
+        }
+
+        // Admin Dashboard Functions
+        function openAdminModal() {
+            renderAdminTable();
+            renderAdminFeedbackTable();
+            openModal('adminModal');
+        }
+
+        function switchAdminTab(tab) {
+            const bookingsView = document.getElementById('adminBookingsView');
+            const feedbackView = document.getElementById('adminFeedbackView');
+            const tabBookingsBtn = document.getElementById('adminTabBookings');
+            const tabFeedbackBtn = document.getElementById('adminTabFeedback');
+
+            if (tab === 'bookings') {
+                bookingsView.classList.remove('hidden');
+                feedbackView.classList.add('hidden');
+                tabBookingsBtn.className = "px-5 py-2.5 text-gold-400 border-b-2 border-gold-500 flex items-center gap-2";
+                tabFeedbackBtn.className = "px-5 py-2.5 text-slate-400 flex items-center gap-2";
+            } else {
+                bookingsView.classList.add('hidden');
+                feedbackView.classList.remove('hidden');
+                tabBookingsBtn.className = "px-5 py-2.5 text-slate-400 flex items-center gap-2";
+                tabFeedbackBtn.className = "px-5 py-2.5 text-gold-400 border-b-2 border-gold-500 flex items-center gap-2";
+            }
+        }
+
+        function renderAdminTable() {
+            const tbody = document.getElementById('adminTableBody');
+            if (!tbody) return;
+
+            document.getElementById('kpiTotalBookings').innerText = bookingsData.length;
+            document.getElementById('kpiPendingBookings').innerText = bookingsData.filter(b => b.status === 'Pending').length;
+
+            tbody.innerHTML = bookingsData.map(b => `
+                <tr class="hover:bg-safari-900/50 transition">
+                    <td class="p-3 font-mono font-bold text-gold-400">${b.id}</td>
+                    <td class="p-3 font-semibold text-white">${b.name}<br><span class="text-[10px] text-slate-400">${b.phone}</span></td>
+                    <td class="p-3">${b.park}</td>
+                    <td class="p-3">${b.date}<br><span class="text-[10px] text-gold-300">${b.slot}</span></td>
+                    <td class="p-3">${b.guests}</td>
+                    <td class="p-3 font-bold text-white">${b.total}</td>
+                    <td class="p-3"><span class="px-2 py-0.5 rounded text-[10px] bg-emerald-500/20 text-emerald-400 font-bold">${b.status}</span></td>
+                    <td class="p-3 text-center">
+                        <button onclick="cancelBooking('${b.id}')" title="Cancel Booking" class="text-rose-400 hover:text-rose-300"><i class="fa-solid fa-trash"></i></button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function renderAdminFeedbackTable() {
+            const tbody = document.getElementById('adminFeedbackTableBody');
+            if (!tbody) return;
+
+            document.getElementById('kpiTotalFeedback').innerText = reviewsData.length;
+
+            tbody.innerHTML = reviewsData.map(r => `
+                <tr class="hover:bg-safari-900/50 transition">
+                    <td class="p-3 font-bold text-white">${r.name}</td>
+                    <td class="p-3">${r.park}</td>
+                    <td class="p-3 text-gold-400 font-bold">${r.rating} ★</td>
+                    <td class="p-3 text-slate-300 truncate max-w-xs">${r.comment}</td>
+                    <td class="p-3">${r.date}</td>
+                    <td class="p-3 text-center">
+                        <button onclick="deleteFeedback(${r.id})" title="Delete Feedback" class="text-rose-400 hover:text-rose-300"><i class="fa-solid fa-trash"></i></button>
+                    </td>
+                </tr>
+            `).join('');
+        }
+
+        function cancelBooking(id) {
+            bookingsData = bookingsData.filter(b => b.id !== id);
+            renderAdminTable();
+            showToast("Booking removed", "fa-trash");
+        }
+
+        function deleteFeedback(id) {
+            reviewsData = reviewsData.filter(r => r.id !== id);
+            renderReviews();
+            renderAdminFeedbackTable();
+            showToast("Feedback removed", "fa-trash");
+        }
+
+        function exportCSV() {
+            let csv = "ID,Name,Email,Phone,Park,Slot,Date,Guests,Total,Status\n";
+            bookingsData.forEach(b => {
+                csv += `"${b.id}","${b.name}","${b.email}","${b.phone}","${b.park}","${b.slot}","${b.date}","${b.guests}","${b.total}","${b.status}"\n`;
+            });
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const url = window.URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `weheragala-safari-bookings-${new Date().toISOString().split('T')[0]}.csv`;
+            a.click();
+        }
+
+        // Initialize Page
+        document.addEventListener('DOMContentLoaded', () => {
+            renderPackages();
+            renderGallery();
+            renderReviews();
+            updateFormPackages();
+            calculateTotal();
+            resetHeroTimer();
+
+            // Set default date picker to tomorrow
+            const tomorrow = new Date();
+            tomorrow.setDate(tomorrow.getDate() + 1);
+            const dateStr = tomorrow.toISOString().split('T')[0];
+            const bookDateEl = document.getElementById('bookDate');
+            if (bookDateEl) bookDateEl.value = dateStr;
+            const heroDateEl = document.getElementById('heroDateInput');
+            if (heroDateEl) heroDateEl.value = dateStr;
+        });
     </script>
 </body>
 </html>
